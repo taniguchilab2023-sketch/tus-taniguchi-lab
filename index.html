@@ -1,0 +1,2240 @@
+
+<!-- saved from url=(0113)file:///C:/Users/12252/OneDrive/%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97/Downloads/index%20(3).html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>谷口研究室 | 東京理科大学</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./index_files/css2" rel="stylesheet">
+<style>
+/* ════ VARIABLES ════ */
+:root {
+  --sky:#e8f4fd; --sky2:#cce6f8;
+  --ocean:#0077b6; --ocean2:#0096c7; --teal:#00b4d8; --mint:#48cae4;
+  --coral:#ff6b6b; --gold:#f4a261; --green:#2ec4b6; --lemon:#ffe66d;
+  --white:#fff; --off:#f5faff;
+  --text:#0f2744; --text2:#3d6080; --gray:#94a3b8;
+  --sm: 0 2px 12px rgba(0,119,182,.08);
+  --md: 0 8px 30px rgba(0,119,182,.13);
+  --lg: 0 20px 60px rgba(0,119,182,.16);
+  --r:16px; --r-sm:10px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--off);color:var(--text);overflow-x:hidden}
+
+/* ════ BG BLOBS ════ */
+.blobs{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.2;animation:bf 14s ease-in-out infinite}
+.b1{width:600px;height:600px;background:var(--teal);top:-200px;right:-100px}
+.b2{width:400px;height:400px;background:var(--ocean);bottom:0;left:-100px;animation-delay:-5s}
+.b3{width:280px;height:280px;background:var(--mint);top:40%;left:35%;animation-delay:-9s}
+@keyframes bf{0%,100%{transform:translate(0,0) scale(1)}40%{transform:translate(25px,-18px) scale(1.06)}75%{transform:translate(-18px,22px) scale(.94)}}
+
+/* ════ PASSWORD MODAL ════ */
+#pw-modal{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;background:rgba(15,39,68,.75);backdrop-filter:blur(10px)}
+#pw-modal.open{display:flex}
+.pw-box{background:#fff;border-radius:24px;padding:44px 48px;width:380px;box-shadow:var(--lg);text-align:center;animation:fadeUp .3s ease;position:relative}
+.pw-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--ocean),var(--teal));border-radius:24px 24px 0 0}
+.pw-box h3{font-family:'Noto Serif JP',serif;font-size:1.35rem;color:var(--text);margin-bottom:6px;margin-top:8px}
+.pw-box p{font-size:.8rem;color:var(--text2);margin-bottom:28px;line-height:1.65}
+.pw-input{width:100%;border:1.5px solid var(--sky2);border-radius:12px;padding:12px 16px;font-size:.95rem;font-family:inherit;color:var(--text);outline:none;transition:border .2s;margin-bottom:8px;text-align:center;letter-spacing:.15em}
+.pw-input:focus{border-color:var(--ocean);box-shadow:0 0 0 3px rgba(0,119,182,.09)}
+.pw-err{font-size:.74rem;color:var(--coral);min-height:18px;margin-bottom:10px}
+.pw-btn{width:100%;background:linear-gradient(135deg,var(--ocean),var(--teal));color:#fff;border:none;border-radius:12px;padding:13px;font-size:.9rem;font-weight:700;cursor:pointer;transition:opacity .2s;margin-bottom:10px}
+.pw-btn:hover{opacity:.88}
+.pw-cancel{background:none;border:none;color:var(--gray);font-size:.78rem;cursor:pointer;text-decoration:underline}
+
+/* ════ EDIT BAR ════ */
+#edit-bar{position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(90deg,#f4a261,#ff6b6b);color:#fff;padding:8px 20px;font-size:.74rem;font-weight:700;letter-spacing:.08em;display:none;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+body.edit-mode #edit-bar{display:flex}
+.edit-bar-btns{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ebar-btn{background:rgba(255,255,255,.25);border:1.5px solid rgba(255,255,255,.5);color:#fff;padding:5px 14px;border-radius:14px;font-size:.72rem;font-weight:700;cursor:pointer;transition:background .2s;white-space:nowrap}
+.ebar-btn:hover{background:rgba(255,255,255,.4)}
+.ebar-btn.save{background:rgba(255,255,255,.9);color:var(--coral)}
+.ebar-btn.save:hover{background:#fff}
+.ebar-btn.exit{background:transparent;border-color:rgba(255,255,255,.4)}
+/* contenteditable highlight */
+body.edit-mode [contenteditable='true']{outline:2px dashed rgba(255,255,255,.7);border-radius:4px;background:rgba(255,255,255,.15);cursor:text}
+body.edit-mode [contenteditable='true']:focus{outline:2px solid #fff;background:rgba(255,255,255,.22)}
+/* edit-only elements */
+.edit-only{display:none!important}
+body.edit-mode .edit-only{display:flex!important}
+body.edit-mode .edit-only-block{display:block!important}
+body.edit-mode .edit-only-inline{display:inline-block!important}
+
+/* ════ NAV ════ */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:14px 52px;display:flex;align-items:center;justify-content:space-between;transition:all .3s}
+nav.scrolled{background:rgba(255,255,255,.93);backdrop-filter:blur(16px);box-shadow:var(--sm)}
+body.edit-mode nav{top:36px}
+.nav-logo{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:700;color:var(--ocean)}
+.nav-logo small{display:block;font-size:.63rem;color:var(--text2);font-family:'Noto Sans JP',sans-serif;font-weight:400;margin-bottom:2px}
+.nav-links{list-style:none;display:flex;gap:24px;align-items:center}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:.8rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--ocean)}
+
+/* ════ HERO SLIDER ════ */
+#hero{position:relative;z-index:1;min-height:100vh;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 24px 80px}
+.hero-track-wrap{position:absolute;inset:0;overflow:hidden}
+.hero-track{display:flex;height:100%;transition:transform .65s cubic-bezier(.4,0,.2,1)}
+.hero-slide{flex:0 0 100%;position:relative;background:linear-gradient(160deg,var(--sky),#fff 50%,var(--sky2))}
+/* 全面に薄く引く - 枠なし・全写真同じ比率 */
+.hero-slide img{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:cover;
+  object-position:center center;
+  opacity:.22;
+}
+.hero-slide-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(255,255,255,.55),rgba(232,244,253,.45))}
+.hero-slide.default-bg img,.hero-slide.default-bg .hero-slide-overlay{display:none}
+/* nav arrows */
+.hnav{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(255,255,255,.78);border:none;border-radius:50%;width:44px;height:44px;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--md);color:var(--ocean);backdrop-filter:blur(4px);transition:all .2s}
+.hnav:hover{background:#fff;box-shadow:var(--lg)}
+#hPrev{left:20px} #hNext{right:20px}
+.hdots{position:absolute;bottom:82px;display:flex;gap:8px;z-index:5}
+.hdot{width:8px;height:8px;border-radius:50%;background:rgba(0,119,182,.28);cursor:pointer;transition:all .3s}
+.hdot.active{background:var(--ocean);transform:scale(1.4)}
+/* edit hero controls */
+.hero-edit-btns{position:absolute;bottom:14px;right:14px;z-index:6;gap:8px}
+.hbtn{background:rgba(255,255,255,.88);border:1.5px solid var(--sky2);padding:6px 14px;border-radius:12px;font-size:.71rem;font-weight:600;color:var(--ocean);cursor:pointer;backdrop-filter:blur(4px);transition:all .2s;white-space:nowrap}
+.hbtn:hover{background:#fff;border-color:var(--teal)}
+.hbtn.danger{color:var(--coral);border-color:rgba(255,107,107,.35)}
+/* floating molecules */
+.mol{position:absolute;border-radius:50%;border:2px solid;opacity:.12;animation:mf 6s ease-in-out infinite;pointer-events:none}
+.m1{width:80px;height:80px;border-color:var(--ocean);top:15%;left:8%}
+.m2{width:50px;height:50px;border-color:var(--teal);top:25%;right:10%;animation-delay:-2s}
+.m3{width:110px;height:110px;border-color:var(--mint);bottom:20%;left:6%;animation-delay:-4s}
+.m4{width:40px;height:40px;border-color:var(--coral);bottom:32%;right:9%;animation-delay:-1s}
+@keyframes mf{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(8deg)}}
+/* hero content */
+.hero-cnt{position:relative;z-index:4}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(0,119,182,.09);border:1px solid rgba(0,119,182,.2);padding:6px 18px;border-radius:20px;font-size:.73rem;color:var(--ocean);font-family:'DM Mono',monospace;letter-spacing:.1em;margin-bottom:22px;opacity:0;animation:fadeUp .7s ease .2s forwards}
+.hero-eyebrow::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+h1.hero-title{font-family:'Noto Serif JP',serif;font-size:clamp(3.2rem,8vw,6.8rem);font-weight:700;line-height:1.05;letter-spacing:.08em;color:var(--text);opacity:0;animation:fadeUp .9s ease .4s forwards}
+h1.hero-title .accent{background:linear-gradient(135deg,var(--ocean),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-dept{font-size:clamp(.8rem,1.8vw,.97rem);color:var(--text2);margin-top:14px;letter-spacing:.15em;opacity:0;animation:fadeUp .9s ease .6s forwards}
+.hero-kws{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-top:36px;opacity:0;animation:fadeUp .9s ease .8s forwards}
+.kw{padding:7px 18px;border-radius:24px;font-size:.75rem;font-weight:600;transition:all .25s;cursor:default}
+.kw1{background:rgba(0,119,182,.1);color:var(--ocean);border:1.5px solid rgba(0,119,182,.25)}
+.kw2{background:rgba(0,150,199,.1);color:var(--ocean2);border:1.5px solid rgba(0,150,199,.25)}
+.kw3{background:rgba(46,196,182,.1);color:var(--green);border:1.5px solid rgba(46,196,182,.3)}
+.kw4{background:rgba(244,162,97,.12);color:#c07010;border:1.5px solid rgba(244,162,97,.35)}
+.kw:hover{transform:translateY(-3px);box-shadow:var(--md)}
+.hero-scroll{position:absolute;bottom:92px;display:flex;flex-direction:column;align-items:center;gap:5px;font-size:.63rem;letter-spacing:.2em;color:var(--gray);animation:bounce 2.5s ease-in-out infinite;z-index:4}
+.hero-scroll svg{width:18px;opacity:.5}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+.hero-wave{position:absolute;bottom:0;left:0;right:0;line-height:0;z-index:3}
+
+/* ════ SECTIONS ════ */
+.sec{position:relative;z-index:1;max-width:1160px;margin:0 auto;padding:88px 48px;overflow-x:visible}
+.sec-label{font-family:'DM Mono',monospace;font-size:.67rem;color:var(--teal);letter-spacing:.3em;text-transform:uppercase;margin-bottom:9px}
+.sec-title{font-family:'Noto Serif JP',serif;font-size:clamp(1.55rem,3vw,2.35rem);font-weight:700;color:var(--text);margin-bottom:6px}
+.sec-title span{color:var(--ocean)}
+.sec-sub{font-size:.88rem;color:var(--text2);margin-bottom:44px;line-height:1.85}
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--sky2),transparent)}
+.reveal{opacity:0;transform:translateY(32px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ════ ABOUT STATS ════ */
+#about-wrap{background:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-text p{font-size:.92rem;line-height:2.05;color:var(--text2);margin-bottom:16px}
+.about-text strong{color:var(--text)}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stat-box{background:var(--off);border:1.5px solid var(--sky2);border-radius:var(--r);padding:22px 18px;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+.stat-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--ocean),var(--teal));opacity:0;transition:opacity .3s}
+.stat-box:hover{transform:translateY(-4px);box-shadow:var(--md);border-color:var(--teal)}
+.stat-box:hover::before{opacity:1}
+.stat-n{font-family:'DM Mono',monospace;font-size:2.3rem;font-weight:500;color:var(--ocean);line-height:1;margin-bottom:5px}
+.stat-n sup{font-size:1rem}
+.stat-label{font-size:.74rem;color:var(--text2);font-weight:500}
+.stat-src{font-size:.6rem;color:var(--gray);margin-top:3px;font-family:'DM Mono',monospace}
+
+/* ════ MEMBERS ════ */
+#members-wrap{background:linear-gradient(180deg,var(--sky),#fff)}
+.members-hero{text-align:center;margin-bottom:52px}
+.total-badge{display:inline-flex;align-items:center;gap:14px;background:linear-gradient(135deg,var(--ocean),var(--teal));color:#fff;border-radius:24px;padding:14px 36px;margin-top:20px;box-shadow:0 12px 40px rgba(0,119,182,.28)}
+.total-badge .big{font-family:'DM Mono',monospace;font-size:2.8rem;font-weight:500;line-height:1}
+.total-badge .lbl{font-size:.83rem;font-weight:600;letter-spacing:.1em;opacity:.85;line-height:1.6}
+/* editable total badge text */
+.total-badge [contenteditable='true']{background:rgba(255,255,255,.15);border-radius:6px;padding:1px 4px;outline:none;min-width:2em}
+.total-badge [contenteditable='true']:focus{background:rgba(255,255,255,.28)}
+.members-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
+.mc{background:#fff;border-radius:20px;padding:26px 18px 22px;text-align:center;box-shadow:var(--sm);border:1.5px solid var(--sky2);transition:all .35s;position:relative}
+.mc:hover{transform:translateY(-7px);box-shadow:var(--lg)}
+.mc-icon{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 5px 18px rgba(0,0,0,.11)}
+.mc-icon svg{width:28px;height:28px;fill:#fff}
+/* number display + edit controls */
+.mc-num-wrap{margin-bottom:5px;display:flex;align-items:center;justify-content:center;gap:6px}
+.mc-num{font-family:'DM Mono',monospace;font-size:2.5rem;font-weight:500;line-height:1}
+.mc-num small{font-size:.95rem;color:var(--text2)}
+/* ＋／－ stepper buttons (edit mode only) */
+.mc-stepper{display:none;flex-direction:column;gap:3px;margin-left:4px}
+body.edit-mode .mc-stepper{display:flex}
+.mc-step{background:none;border:1.5px solid var(--sky2);border-radius:6px;width:22px;height:22px;font-size:.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ocean);transition:all .18s;line-height:1}
+.mc-step:hover{background:var(--ocean);color:#fff;border-color:var(--ocean)}
+/* role label editable */
+.mc-role{font-size:.8rem;font-weight:700;margin-bottom:3px}
+.mc-en{font-size:.66rem;color:var(--gray);font-family:'DM Mono',monospace;letter-spacing:.07em}
+.mc-note{display:inline-block;margin-top:8px;font-size:.64rem;padding:3px 9px;border-radius:9px;background:rgba(244,162,97,.12);color:#c07010;font-weight:600}
+.mc-dots{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-top:12px;padding-top:12px;border-top:1px solid var(--sky2);min-height:13px}
+.dot{width:9px;height:9px;border-radius:50%;transition:transform .3s}
+.mc:hover .dot{transform:scale(1.25)}
+.mc-prof{border-top:4px solid var(--ocean)}.mc-prof .mc-icon{background:linear-gradient(135deg,var(--ocean),var(--ocean2))}
+.mc-doc{border-top:4px solid var(--coral)}.mc-doc .mc-icon{background:linear-gradient(135deg,var(--coral),#ff9a9a)}
+.mc-m2{border-top:4px solid var(--green)}.mc-m2 .mc-icon{background:linear-gradient(135deg,var(--green),#6ee7de)}
+.mc-m1{border-top:4px solid var(--teal)}.mc-m1 .mc-icon{background:linear-gradient(135deg,var(--teal),var(--mint))}
+.mc-b4{border-top:4px solid var(--gold)}.mc-b4 .mc-icon{background:linear-gradient(135deg,var(--gold),var(--lemon))}
+
+/* ════ RESEARCH ════ */
+#research-wrap{background:#fff}
+.research-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.rc{border-radius:var(--r);padding:34px 26px;border:1.5px solid var(--sky2);position:relative;overflow:hidden;transition:all .35s}
+.rc-bg{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.12;transition:opacity .3s}
+.rc-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(245,250,255,.88),rgba(240,246,252,.94))}
+.rc-content{position:relative;z-index:1}
+.rc:hover{transform:translateY(-6px);box-shadow:var(--lg);border-color:var(--teal)}
+.rc-num{font-family:'DM Mono',monospace;font-size:3rem;font-weight:500;color:var(--sky2);line-height:1;margin-bottom:14px;transition:color .3s}
+.rc:hover .rc-num{color:rgba(0,180,216,.18)}
+.rc h3{font-family:'Noto Serif JP',serif;font-size:1.03rem;font-weight:700;color:var(--ocean);margin-bottom:11px;line-height:1.5}
+.rc p{font-size:.84rem;color:var(--text2);line-height:1.9}
+.rc-tag{display:inline-block;margin-top:14px;padding:3px 12px;border-radius:10px;font-size:.67rem;font-weight:700;font-family:'DM Mono',monospace;background:rgba(0,180,216,.1);color:var(--ocean2);border:1px solid rgba(0,180,216,.25)}
+/* photo btn for research cards (edit mode only) */
+.rc-btn-wrap{position:absolute;bottom:10px;right:10px;z-index:2;display:flex;flex-direction:column;gap:5px;align-items:flex-end}
+.rc-pbtn{background:rgba(255,255,255,.9);border:1.5px solid var(--sky2);padding:4px 12px;border-radius:9px;font-size:.69rem;color:var(--ocean);cursor:pointer;transition:all .2s;white-space:nowrap}
+.rc-pbtn:hover{border-color:var(--teal);background:#fff}
+.rc-pbtn.danger{color:var(--coral);border-color:rgba(255,107,107,.35)}
+
+/* ════ AWARDS + ACTIVITIES SIDE BY SIDE ════ */
+#aa-wrap{background:var(--sky)}
+.aa-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.aa-col{background:#fff;border-radius:20px;padding:30px;box-shadow:var(--sm);border:1.5px solid var(--sky2);display:flex;flex-direction:column;min-height:520px}
+.aa-col-head{display:flex;align-items:baseline;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.aa-col-head h3{font-family:'Noto Serif JP',serif;font-size:1.15rem;font-weight:700}
+.aa-badge{font-family:'DM Mono',monospace;font-size:.68rem;background:var(--ocean);color:#fff;padding:3px 10px;border-radius:9px}
+.aa-badge.gold{background:var(--gold)}
+.aa-auto{font-size:.62rem;color:var(--gray);margin-left:auto;font-family:'DM Mono',monospace}
+.aa-scroll{flex:1;overflow-y:auto;max-height:400px;padding-right:6px}
+.aa-scroll::-webkit-scrollbar{width:4px}
+.aa-scroll::-webkit-scrollbar-track{background:var(--sky)}
+.aa-scroll::-webkit-scrollbar-thumb{background:var(--teal);border-radius:4px}
+/* award row */
+.aw{display:flex;gap:14px;align-items:flex-start;padding:12px 12px;border-radius:9px;transition:all .2s;border-left:3px solid transparent}
+.aw:hover{background:var(--off);border-left-color:var(--gold)}
+.aw-date{font-family:'DM Mono',monospace;font-size:.69rem;color:var(--gold);min-width:64px;padding-top:2px;white-space:nowrap;font-weight:500}
+.aw-text{font-size:.84rem;color:var(--text2);line-height:1.55}
+/* activity item */
+.act{display:flex;flex-direction:column;gap:4px;padding:13px;border-radius:9px;border:1.5px solid var(--sky2);margin-bottom:7px;transition:all .2s;position:relative}
+.act:hover{border-color:var(--teal);box-shadow:var(--sm)}
+.act-date{font-family:'DM Mono',monospace;font-size:.67rem;color:var(--teal);font-weight:500}
+.act-event{font-size:.85rem;font-weight:700;color:var(--text)}
+.act-detail{font-size:.79rem;color:var(--text2);line-height:1.5}
+.act-type{display:inline-block;font-size:.62rem;padding:2px 8px;border-radius:7px;font-weight:600;margin-top:3px;width:fit-content}
+.act-type.presentation{background:rgba(0,180,216,.1);color:var(--ocean2)}
+.act-type.award{background:rgba(244,162,97,.14);color:#c07010}
+.act-type.best_paper{background:rgba(255,107,107,.11);color:#d04040}
+.act-del{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:rgba(255,107,107,.8);color:#fff;border:none;font-size:12px;cursor:pointer;align-items:center;justify-content:center;display:none}
+body.edit-mode .act-del{display:flex}
+/* add form */
+.act-add-row{margin-top:12px;display:none}
+body.edit-mode .act-add-row{display:block}
+.act-add-btn{width:100%;background:none;border:2px dashed var(--sky2);border-radius:11px;padding:9px;color:var(--text2);font-size:.79rem;cursor:pointer;transition:all .2s;font-family:inherit}
+.act-add-btn:hover{border-color:var(--teal);color:var(--ocean)}
+.act-form{background:var(--off);border-radius:12px;padding:14px;margin-top:8px;display:none}
+.act-form.open{display:block}
+.act-form input,.act-form select{width:100%;border:1.5px solid var(--sky2);border-radius:8px;padding:8px 11px;font-size:.81rem;color:var(--text);outline:none;margin-bottom:7px;font-family:inherit;transition:border .2s}
+.act-form input:focus,.act-form select:focus{border-color:var(--ocean)}
+.act-form-2col{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.act-submit{background:var(--ocean);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:.81rem;font-weight:700;cursor:pointer;width:100%;transition:background .2s}
+.act-submit:hover{background:var(--ocean2)}
+#act-empty{text-align:center;padding:24px;color:var(--gray);font-size:.81rem}
+
+/* ════ PROFESSOR ════ */
+#prof-wrap{background:linear-gradient(180deg,#fff,var(--sky))}
+.prof-card{background:#fff;border-radius:24px;padding:48px;box-shadow:var(--lg);border:1.5px solid var(--sky2);display:grid;grid-template-columns:210px 1fr;gap:48px;align-items:start;position:relative;overflow:hidden}
+.prof-card::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--ocean),var(--teal),var(--mint))}
+.prof-photo-col{display:flex;flex-direction:column;align-items:center;gap:12px}
+.prof-photo{width:160px;height:160px;border-radius:50%;border:3px solid var(--sky2);overflow:hidden;background:var(--sky);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,119,182,.14)}
+.prof-photo img{width:100%;height:100%;object-fit:cover}
+.prof-photo svg{width:60px;opacity:.26}
+.photo-up-btn{background:none;border:1.5px dashed var(--gray);color:var(--text2);padding:5px 14px;border-radius:10px;font-size:.68rem;cursor:pointer;transition:all .2s;display:none}
+body.edit-mode .photo-up-btn{display:block}
+.photo-up-btn:hover{border-color:var(--ocean);color:var(--ocean)}
+.prof-name{font-family:'Noto Serif JP',serif;font-size:1.95rem;font-weight:700;margin-bottom:4px}
+.prof-pos{font-size:.83rem;color:var(--text2);margin-bottom:24px;line-height:1.6}
+.prof-pos strong{color:var(--ocean)}
+.prof-body p{font-size:.87rem;color:var(--text2);line-height:2;margin-bottom:13px}
+.prof-body strong{color:var(--text)}
+.prof-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.pl{display:inline-flex;align-items:center;gap:7px;padding:8px 20px;border-radius:22px;border:1.5px solid var(--sky2);color:var(--ocean);text-decoration:none;font-size:.77rem;font-weight:600;background:#fff;transition:all .25s;box-shadow:var(--sm)}
+.pl:hover{background:var(--ocean);color:#fff;border-color:var(--ocean);transform:translateY(-2px);box-shadow:var(--md)}
+.pl svg{width:13px;height:13px;fill:currentColor}
+
+/* ════ GALLERY ════ */
+#gallery-wrap{background:#fff}
+.gal-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.gal-year-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.gal-tab{padding:6px 18px;border-radius:20px;font-size:.76rem;font-weight:600;font-family:'DM Mono',monospace;cursor:pointer;border:1.5px solid var(--sky2);background:#fff;color:var(--text2);transition:all .22s}
+.gal-tab:hover{border-color:var(--teal);color:var(--ocean)}
+.gal-tab.active{background:var(--ocean);color:#fff;border-color:var(--ocean);box-shadow:0 4px 14px rgba(0,119,182,.25)}
+.gal-count{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--gray)}
+.gal-add-btn{background:var(--ocean);color:#fff;border:none;padding:8px 20px;border-radius:20px;font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;box-shadow:0 4px 14px rgba(0,119,182,.28);display:none}
+.gal-add-btn:hover{background:var(--ocean2);transform:translateY(-1px)}
+body.edit-mode .gal-add-btn{display:inline-flex;align-items:center;gap:6px}
+.gal-group{margin-bottom:44px}
+.gal-group-header{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.gal-group-year{font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:700;color:var(--ocean)}
+.gal-group-line{flex:1;height:1px;background:linear-gradient(to right,var(--sky2),transparent)}
+.gal-group-n{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--gray);white-space:nowrap}
+/* ── KEY FIX: width:100% ensures overflow-x:auto triggers ── */
+.gal-strip-outer{width:100%;overflow-x:auto;overflow-y:visible;padding-bottom:16px;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+.gal-strip-outer::-webkit-scrollbar{height:6px}
+.gal-strip-outer::-webkit-scrollbar-track{background:var(--sky);border-radius:3px}
+.gal-strip-outer::-webkit-scrollbar-thumb{background:var(--teal);border-radius:3px}
+.gal-strip-outer::-webkit-scrollbar-thumb:hover{background:var(--ocean)}
+/* flex-wrap:nowrap keeps cards in one row */
+.gal-strip{display:flex;flex-wrap:nowrap;gap:16px;padding:4px 4px 6px}
+.gi{flex:0 0 250px;width:250px;border-radius:var(--r);border:1.5px solid var(--sky2);background:var(--off);overflow:hidden;box-shadow:var(--sm);transition:all .3s;position:relative;display:flex;flex-direction:column}
+.gi:hover{transform:translateY(-5px);box-shadow:var(--lg);border-color:var(--teal)}
+.gi-img{width:100%;aspect-ratio:4/3;overflow:hidden;background:var(--sky);cursor:pointer;flex-shrink:0}
+.gi-img img{width:100%;height:100%;object-fit:cover;transition:transform .4s;display:block}
+.gi:hover .gi-img img{transform:scale(1.06)}
+.gi-body{padding:12px 14px 14px;flex:1;display:flex;flex-direction:column;gap:6px}
+.gi-date-badge{display:inline-flex;align-items:center;gap:5px;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--teal);font-weight:500}
+.gi-date-badge svg{width:11px;height:11px;fill:var(--teal);opacity:.7;flex-shrink:0}
+.gi-caption{font-size:.8rem;color:var(--text2);line-height:1.6;flex:1}
+.gi-caption.empty{color:var(--gray);font-style:italic;font-size:.74rem}
+.gi-edit-fields{display:none;flex-direction:column;gap:6px}
+body.edit-mode .gi-edit-fields{display:flex}
+body.edit-mode .gi-caption{display:none}
+body.edit-mode .gi-date-badge{display:none}
+.gi-date-inp{width:100%;border:1.5px solid var(--sky2);border-radius:7px;padding:5px 9px;font-size:.75rem;font-family:'DM Mono',monospace;color:var(--text);outline:none;transition:border .2s}
+.gi-date-inp:focus{border-color:var(--teal)}
+.gi-text-inp{width:100%;border:1.5px solid var(--sky2);border-radius:7px;padding:7px 9px;font-size:.78rem;font-family:inherit;color:var(--text);resize:none;outline:none;min-height:54px;transition:border .2s}
+.gi-text-inp:focus{border-color:var(--ocean)}
+.gi-inp-label{font-size:.63rem;color:var(--gray);font-weight:600;letter-spacing:.05em;margin-bottom:-2px}
+.gi-del{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;background:rgba(255,107,107,.9);color:#fff;border:none;font-size:15px;cursor:pointer;align-items:center;justify-content:center;display:none;z-index:2;line-height:1}
+body.edit-mode .gi-del{display:flex}
+.gi-del:hover{background:var(--coral)}
+.gal-upload-card{flex:0 0 200px;width:200px;border:2px dashed var(--sky2);border-radius:var(--r);aspect-ratio:4/3;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:var(--gray);font-size:.78rem;cursor:pointer;transition:all .3s;background:var(--sky);display:none}
+body.edit-mode .gal-upload-card{display:flex}
+.gal-upload-card:hover{border-color:var(--teal);color:var(--ocean);background:rgba(0,180,216,.05)}
+.gal-plus{font-size:2rem;color:var(--teal);line-height:1}
+.gal-empty{text-align:center;padding:52px 20px;color:var(--gray);font-size:.86rem}
+.gal-empty svg{width:48px;opacity:.25;display:block;margin:0 auto 12px}
+.lb-info{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(15,39,68,.85),transparent);padding:20px 28px 24px;color:#fff;pointer-events:none;border-radius:0 0 12px 12px}
+.lb-info-caption{font-size:.92rem;line-height:1.6;margin-bottom:4px}
+.lb-info-date{font-family:'DM Mono',monospace;font-size:.7rem;opacity:.7}
+
+/* ════ NANO MASCOT ════ */
+#mascot-wrap{position:fixed;bottom:0;left:20px;z-index:8000;pointer-events:none;user-select:none;width:96px}
+#mascot{width:96px;cursor:pointer;pointer-events:all;transform-origin:bottom center;filter:drop-shadow(0 4px 10px rgba(0,0,0,.18))}
+#mascot-bubble{
+  position:absolute;bottom:112px;left:50%;transform:translateX(-50%);
+  background:#fff;border:2.5px solid #7bc67e;border-radius:18px;
+  padding:8px 14px;font-size:.73rem;font-weight:700;color:var(--text);
+  white-space:nowrap;box-shadow:var(--md);
+  opacity:0;transition:opacity .3s;pointer-events:none;
+  max-width:220px;white-space:normal;text-align:center;line-height:1.45;
+}
+#mascot-bubble::after{
+  content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);
+  border:6px solid transparent;border-top-color:#7bc67e
+}
+#mascot-bubble.show{opacity:1}
+
+/* ── keyframes ── */
+@keyframes mc-idle{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-6px) rotate(1.5deg)}
+}
+@keyframes mc-walk{
+  0%  {transform:translateY(0)   rotate(-8deg)  scaleX(1)}
+  25% {transform:translateY(-10px) rotate(0deg)  scaleX(1.05)}
+  50% {transform:translateY(0)   rotate(8deg)   scaleX(1)}
+  75% {transform:translateY(-10px) rotate(0deg)  scaleX(.96)}
+  100%{transform:translateY(0)   rotate(-8deg)  scaleX(1)}
+}
+@keyframes mc-jump{
+  0%  {transform:translateY(0)    scaleY(1)   scaleX(1)}
+  15% {transform:translateY(0)    scaleY(.75) scaleX(1.2)}
+  40% {transform:translateY(-42px) scaleY(1.15) scaleX(.9)}
+  65% {transform:translateY(-48px) scaleY(1)}
+  85% {transform:translateY(-6px)  scaleY(.85) scaleX(1.1)}
+  100%{transform:translateY(0)    scaleY(1)   scaleX(1)}
+}
+@keyframes mc-wave{
+  0%  {transform:rotate(0deg)   translateY(0)}
+  20% {transform:rotate(-14deg) translateY(-4px)}
+  40% {transform:rotate(14deg)  translateY(-4px)}
+  60% {transform:rotate(-10deg) translateY(-2px)}
+  80% {transform:rotate(10deg)  translateY(-2px)}
+  100%{transform:rotate(0deg)   translateY(0)}
+}
+@keyframes mc-happy{
+  0%  {transform:rotate(0deg)   scale(1)}
+  25% {transform:rotate(-15deg) scale(1.15)}
+  50% {transform:rotate(15deg)  scale(1.15)}
+  75% {transform:rotate(-10deg) scale(1.1)}
+  100%{transform:rotate(0deg)   scale(1)}
+}
+@keyframes mc-squish{
+  0%,100%{transform:scaleX(1)    scaleY(1)}
+  40%    {transform:scaleX(1.3)  scaleY(.65)}
+  70%    {transform:scaleX(.88)  scaleY(1.18)}
+}
+/* apply to #mascot element itself */
+#mascot.idle  {animation:mc-idle  2.6s ease-in-out infinite}
+#mascot.walk  {animation:mc-walk  .42s ease-in-out infinite}
+#mascot.jump  {animation:mc-jump  .7s  cubic-bezier(.3,0,.5,1) forwards}
+#mascot.wave  {animation:mc-wave  .55s ease-in-out 3 forwards}
+#mascot.happy {animation:mc-happy .5s  ease-in-out 2 forwards}
+#mascot.squish{animation:mc-squish .38s ease-in-out forwards}
+
+/* ════ FOOTER ════ */
+footer{position:relative;z-index:1;background:var(--text);color:rgba(255,255,255,.7);padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:22px}
+.foot-logo{font-family:'Noto Serif JP',serif;font-size:1.15rem;color:#fff;font-weight:700;margin-bottom:9px}
+footer p{font-size:.78rem;line-height:1.9}
+.foot-right{text-align:right;font-size:.73rem}
+
+/* ════ GDRIVE URL MODAL ════ */
+#gdrive-modal{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(15,39,68,.78);backdrop-filter:blur(8px)}
+#gdrive-modal.open{display:flex}
+.gdrive-box{background:#fff;border-radius:20px;padding:36px 40px;width:min(480px,92vw);box-shadow:0 20px 60px rgba(0,119,182,.22);position:relative;animation:fadeUp .3s ease}
+.gdrive-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--ocean),var(--teal));border-radius:20px 20px 0 0}
+.gdrive-box h3{font-family:'Noto Serif JP',serif;font-size:1.15rem;color:var(--text);margin-bottom:6px;margin-top:8px}
+.gdrive-box p{font-size:.8rem;color:var(--text2);margin-bottom:20px;line-height:1.7}
+.gdrive-inp{width:100%;border:1.5px solid var(--sky2);border-radius:10px;padding:11px 14px;font-size:.88rem;font-family:inherit;color:var(--text);outline:none;transition:border .2s;margin-bottom:8px;box-sizing:border-box}
+.gdrive-inp:focus{border-color:var(--ocean);box-shadow:0 0 0 3px rgba(0,119,182,.09)}
+.gdrive-inp::placeholder{color:var(--gray)}
+.gdrive-err{font-size:.74rem;color:var(--coral);min-height:18px;margin-bottom:8px}
+.gdrive-btns{display:flex;gap:10px}
+.gdrive-ok{flex:1;background:linear-gradient(135deg,var(--ocean),var(--teal));color:#fff;border:none;border-radius:10px;padding:11px;font-size:.88rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+.gdrive-ok:hover{opacity:.88}
+.gdrive-cancel{background:none;border:1.5px solid var(--sky2);border-radius:10px;padding:11px 18px;font-size:.82rem;color:var(--gray);cursor:pointer}
+
+/* ════ LIGHTBOX ════ */
+#lb{position:fixed;inset:0;background:rgba(15,39,68,.9);z-index:9998;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+#lb.open{display:flex}
+#lb img{max-width:90vw;max-height:88vh;border-radius:12px;box-shadow:0 0 80px rgba(0,119,182,.25)}
+#lb-x{position:absolute;top:22px;right:28px;color:#fff;font-size:2rem;cursor:pointer;opacity:.6;transition:opacity .2s}
+#lb-x:hover{opacity:1}
+
+/* ════ TOAST ════ */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--mint);padding:12px 22px;border-radius:12px;font-size:.79rem;font-weight:600;z-index:9999;box-shadow:var(--lg);border:1px solid rgba(72,202,228,.3);animation:fadeUp .3s ease;pointer-events:none}
+
+/* ════ GITHUB SETTINGS MODAL ════ */
+#gh-modal{position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(15,39,68,.75);backdrop-filter:blur(10px)}
+#gh-modal.open{display:flex}
+.gh-box{background:#fff;border-radius:24px;padding:40px 44px;width:440px;max-width:95vw;box-shadow:var(--lg);position:relative}
+.gh-box::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#24292f,var(--ocean));border-radius:24px 24px 0 0}
+.gh-box h3{font-family:'Noto Serif JP',serif;font-size:1.2rem;color:var(--text);margin-bottom:6px;margin-top:8px}
+.gh-box p{font-size:.78rem;color:var(--text2);margin-bottom:20px;line-height:1.7}
+.gh-label{font-size:.74rem;font-weight:700;color:var(--text2);margin-bottom:5px;display:block;letter-spacing:.04em}
+.gh-input{width:100%;border:1.5px solid var(--sky2);border-radius:10px;padding:10px 14px;font-size:.88rem;font-family:inherit;color:var(--text);outline:none;transition:border .2s;margin-bottom:14px}
+.gh-input:focus{border-color:var(--ocean);box-shadow:0 0 0 3px rgba(0,119,182,.09)}
+.gh-hint{font-size:.7rem;color:var(--gray);margin-top:-10px;margin-bottom:14px;line-height:1.6}
+.gh-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gh-btns{display:flex;gap:10px;margin-top:6px}
+.gh-save-btn{flex:1;background:linear-gradient(135deg,#24292f,var(--ocean));color:#fff;border:none;border-radius:12px;padding:12px;font-size:.88rem;font-weight:700;cursor:pointer;transition:opacity .2s}
+.gh-save-btn:hover{opacity:.88}
+.gh-cancel-btn{background:none;border:1.5px solid var(--sky2);color:var(--text2);border-radius:12px;padding:12px 20px;font-size:.88rem;font-weight:600;cursor:pointer;transition:all .2s}
+.gh-cancel-btn:hover{border-color:var(--gray)}
+.gh-status{font-size:.74rem;margin-top:12px;padding:8px 12px;border-radius:8px;display:none}
+.gh-status.ok{background:rgba(46,196,182,.12);color:#0a7c6f;border:1px solid rgba(46,196,182,.3);display:block}
+.gh-status.err{background:rgba(255,107,107,.1);color:#c0392b;border:1px solid rgba(255,107,107,.25);display:block}
+
+/* ════ KEYFRAMES ════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* ════ RESPONSIVE ════ */
+@media(max-width:960px){
+  nav{padding:14px 20px}.nav-links{display:none}
+  .sec{padding:64px 20px}
+  .about-grid,.aa-grid{grid-template-columns:1fr;gap:24px}
+  .members-grid{grid-template-columns:repeat(2,1fr)}
+  .research-grid{grid-template-columns:1fr}
+  .prof-card{grid-template-columns:1fr;padding:28px}
+  footer{padding:32px 20px;flex-direction:column;text-align:center}
+  .foot-right{text-align:center}
+}
+@media(max-width:480px){
+  .members-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+
+<!-- @@TLAB_DATA_START@@ -->
+<script id="embedded-data" type="application/json">{"texts":{"hero-title":"<span class=\"accent\">谷口</span>研究室","hero-dept":"東京理科大学 先進工学部 電子システム工学科","about-1":"谷口研究室では，<strong>ナノテクノロジーでのものづくり</strong>を行っております。携帯電話やパソコンに代表されるような高性能・多機能製品に必要なデバイス（LSI，表示部品，光学部品，反射防止フィルムなど）に応用できるものを作っております。","about-2":"作製方法は，微細な模様が作製できる<strong>電子ビーム技術・イオンビーム技術</strong>を用い，これを金型として樹脂等へ複製しております。新しいデバイスを設計し，その量産性を確かめることができます。","about-3":"ナノテクノロジーは今日の高度情報化社会を支える基盤技術です。本研究室では，ナノメートルオーダー（10⁻⁹m）の超微細加工技術の研究を行っており，特に<strong>ナノオーダーでの3次元（3D）形状創製技術</strong>を重点的に行っております。","mem-sub":"ナノテクノロジーの研究に情熱を持つメンバーが集まっています。","mem-total-label":"メンバー","mem-year":"2026年度","mc-role-prof":"指導教員","mc-en-prof":"Professor","mc-role-doc":"博士課程","mc-en-doc":"Doctoral","mc-role-m2":"修士2年（M2）","mc-en-m2":"Master 2nd Year","mc-role-m1":"修士1年（M1）","mc-en-m1":"Master 1st Year","mc-role-b4":"学部4年（B4）","mc-en-b4":"Bachelor 4th Year","mc-note-b4":"内部進学予定","rc0-h":"三次元ナノ構造作製技術の開発","rc0-p":"加速電圧を変化させる電子ビーム露光技術で，最高5nmの深さ分解能を達成。100nm以下で深さを変化させた三次元ナノモールドを作製し，パターンを転写・複製できます。LSIリソグラフィやホログラフィック光学素子など，正確な深さ制御が必要なデバイスの作製に有効です。","rc1-h":"ナノインプリントリソグラフィ","rc1-p":"3Dナノスタンプを作製する技術と，そのスタンプを押して転写するナノインプリントリソグラフィの研究を行っています。次世代リソグラフィ技術として，低コスト・高スループットでのナノパターン形成を実現します。","rc2-h":"ダイヤモンドの三次元超微細加工","rc2-p":"ダイヤモンドなどの難加工材の3次元超微細加工に関する研究です。ダイヤモンドからの電子放出や電子ビーム援用化学加工を活用し，極限的な材料特性を持つダイヤモンドの精密加工技術を開発しています。","prof-name":"谷口 淳","prof-pos":"<strong>教授</strong>　東京理科大学 先進工学部 電子システム工学科","prof-edu":"<strong>学歴：</strong>1994年 東京理科大学 基礎工学部 電子応用工学科 卒業。1999年 東京理科大学大学院 基礎工学研究科 電子応用工学専攻 博士課程修了。博士（工学）。","prof-field":"<strong>専門分野：</strong>ナノテクノロジー／超微細加工技術／ナノインプリント技術。1999年よりナノインプリント技術の研究を継続して行い，応用物理学会 ナノインプリント技術研究会 運営委員長（2021〜2026年）などを歴任。","prof-contact":"<strong>連絡先：</strong>〒125-8585 東京都葛飾区新宿6-3-1　TEL: 03-5876-1717（代表）","footer-addr":"東京理科大学 先進工学部 電子システム工学科<br>〒125-8585 東京都葛飾区新宿6-3-1<br>TEL: 03-5876-1717（代表）","footer-year":"2025","footer-sub":"Nano/Micro Systems · Nanoimprint · Electron Beam Lithography"},"heroPhotos":[{"id":"19daadd5711vkc5if","src":"https://lh3.googleusercontent.com/d/1bfekz6JTb6zWOSQUKLM7WhBM3bcpLEOz"},{"id":"19daadd5711uwlm50","src":"https://lh3.googleusercontent.com/d/19A_nTBul53_VSeBC_vQZrtL9AssmvZBa"},{"id":"19daadd5711218dfj","src":"https://lh3.googleusercontent.com/d/17BzcGtRUlPiNejk_Ghkbi2NvijnDN3a9"}],"rcBg":{},"activities":[{"id":"mo7we938i33ynri946","date":"2026.3","event":"第73回 応用物理学会 春季学術講演会","detail":"B4（M1になる学生）の3名が、口頭で研究発表を行いました.","type":"presentation"}],"gallery":[{"id":"19dad6d38c6zx7mw5","src":"https://lh3.googleusercontent.com/d/194P00jR0FsmrDGAtuBwAlfqASeQFrsIz","comment":"OB会の様子！","addedAt":"2024年9月"},{"id":"19dad6d38c6y9ve9g","src":"https://lh3.googleusercontent.com/d/1QOxhRq5kMaEwiqL56IUmlCB6piASbLuw","comment":"いい笑顔の先輩たち","addedAt":"2024年9月"},{"id":"19dad6d38c609fvd9","src":"https://lh3.googleusercontent.com/d/1bUV7prQQQUtIQHAaB8qrAWT2aIzmqTmr","comment":"OB会の様子！","addedAt":"2024年9月"},{"id":"19dad6d38c64bcuw5","src":"https://lh3.googleusercontent.com/d/1RfBEijpxmsflKMXKdmk72CtKbEARo87d","comment":"OB会の様子！","addedAt":"2024年9月"},{"id":"19dad6d38c6e4x4vc","src":"https://lh3.googleusercontent.com/d/1rbmbs585Bh0zch-VAw6K9VGE1oudzmf0","comment":"","addedAt":"2023年9月"},{"id":"19dad6d38c6b41ltn","src":"https://lh3.googleusercontent.com/d/1Ul8VNaUqhSVWOWdpx-_hpZjBQ953qzQ6","comment":"猫","addedAt":"2023年9月"},{"id":"19dad6d38c6zketyl","src":"https://lh3.googleusercontent.com/d/1cQqYtBFZm_pZkC2nPTnTDrEHjKPNB7O-","comment":"","addedAt":"2023年9月"},{"id":"19dad6d38c6uzxhz0","src":"https://lh3.googleusercontent.com/d/17BzcGtRUlPiNejk_Ghkbi2NvijnDN3a9","comment":"","addedAt":"2023年9月"},{"id":"19dad6d38c6q02gy8","src":"https://lh3.googleusercontent.com/d/1CDar7Dv2KukX22JYMUyj6Oew9szIk26m","comment":"","addedAt":"2023年9月"},{"id":"19dad6d38c6nzqvqe","src":"https://lh3.googleusercontent.com/d/1Lvve5XCOisQZIiVhPYyzQX3tWp8njPha","comment":"合間の時間に観光","addedAt":"2025年9月"},{"id":"19dad6d38c6odxwyi","src":"https://lh3.googleusercontent.com/d/1LPVDnL5erba7ZlOLepN5w1IgidP2Puev","comment":"空港に到着","addedAt":"2025年9月"},{"id":"19dad6d38c639d76l","src":"https://lh3.googleusercontent.com/d/1PDcWITSu9MSe6B05pawu3-jsknw0K-om","comment":"一番おいしかったぁ","addedAt":"2025年9月"},{"id":"19dad6d38c6jbwjmo","src":"https://lh3.googleusercontent.com/d/19A_nTBul53_VSeBC_vQZrtL9AssmvZBa","comment":"英語で研究発表...","addedAt":"2025年9月"},{"id":"19dad6d38c6h9y4o5","src":"https://lh3.googleusercontent.com/d/1tFSXdkwY-1axZDFVh6V230R5sGwMmC43","comment":"草","addedAt":"2025年9月"},{"id":"19dad6d38c6isjccc","src":"https://lh3.googleusercontent.com/d/13wgnc_8d_imt5zcenfn_n8nVNtsDRlvg","comment":"草2","addedAt":"2025年9月"},{"id":"19dad6d38c61t6lpp","src":"https://lh3.googleusercontent.com/d/1uB-7_wG3-11dkLpQYaaNZj0FNh-5NI6t","comment":"ポスター発表！","addedAt":"2025年9月"},{"id":"19dad6d38c6e0kj5y","src":"https://lh3.googleusercontent.com/d/1jX9O2Q5dJLX17UoQTRVejky9BgxE1x6m","comment":"","addedAt":"2025年9月"},{"id":"19dad6d38c6auypwr","src":"https://lh3.googleusercontent.com/d/1R03I-fPUImyI-5y1KS2jmhecjk2GeSq0","comment":"","addedAt":"2025年9月"},{"id":"19dad6d38c6j2chod","src":"https://lh3.googleusercontent.com/d/13v4PT9G-XPKOtx6BIgVamg-pXSNxGt0U","comment":"","addedAt":"2025年9月"},{"id":"19dad6d38c6r72nnv","src":"https://lh3.googleusercontent.com/d/1bd4wH3bJ3VDhZXa7AlDVvH6d5yFSx3Qu","comment":"","addedAt":"2025年9月"},{"id":"19dad6d38c6rhygqz","src":"https://lh3.googleusercontent.com/d/1KYXg_8XCYPZINkCd2w4azyZ0RoHeDM2a","comment":"","addedAt":"2025年9月"},{"id":"19dad6d38c6fdmsad","src":"https://lh3.googleusercontent.com/d/1M7XnwZyDtMwRmXWyIA9WlxQ0_gqN85or","comment":"","addedAt":"2025年9月"},{"id":"19dad6d38c6vvucwt","src":"https://lh3.googleusercontent.com/d/18VO4hg4F20GFQq5EDIRQlOt-g6S8v1Jp","comment":"","addedAt":"2025年9月"},{"id":"19dad6d38c6iob5rr","src":"https://lh3.googleusercontent.com/d/1bfekz6JTb6zWOSQUKLM7WhBM3bcpLEOz","comment":"","addedAt":"2025年9月"},{"id":"19dad6d38c64wsp99","src":"https://lh3.googleusercontent.com/d/1LXhJvek3ZoRbUuDfNwQ7-lzbdQOu2_YK","comment":"","addedAt":"2025年9月"},{"id":"19dad6d38c6ehqrxq","src":"https://lh3.googleusercontent.com/d/10l1eeGTXr4uKu4Fe9Slf6U4gfCyspuiy","comment":"あの有名な...","addedAt":"2025年9月"},{"id":"19dad6d38c6d65zvn","src":"https://lh3.googleusercontent.com/d/1tBE5ZHC5TdpUo15DQ0UJ1fHPH0_8t41N","comment":"英語で学会発表！","addedAt":"2025年9月"},{"id":"mo7wswfv2aj5uvfx059","src":"https://lh3.googleusercontent.com/d/1Ul8VNaUqhSVWOWdpx-_hpZjBQ953qzQ6","comment":"猫","addedAt":"2023年9月"}],"members":{},"profPhoto":""}</script>
+<!-- @@TLAB_DATA_END@@ -->
+</head>
+<body>
+
+<!-- ─── GITHUB SETTINGS MODAL ─── -->
+<div id="gh-modal">
+  <div class="gh-box">
+    <h3>⚙ GitHub 公開設定</h3>
+    <p>GitHubリポジトリの情報を入力してください。<br>トークンはこのブラウザにのみ保存され、HTMLファイルには書き込まれません。</p>
+    <div class="gh-row">
+      <div>
+        <label class="gh-label">GitHubユーザー名</label>
+        <input class="gh-input" id="gh-user" placeholder="例: taniguchi-lab" autocomplete="off">
+      </div>
+      <div>
+        <label class="gh-label">リポジトリ名</label>
+        <input class="gh-input" id="gh-repo" placeholder="例: lab-website" autocomplete="off">
+      </div>
+    </div>
+    <div class="gh-row">
+      <div>
+        <label class="gh-label">ブランチ名</label>
+        <input class="gh-input" id="gh-branch" placeholder="main" autocomplete="off">
+      </div>
+      <div>
+        <label class="gh-label">ファイルパス</label>
+        <input class="gh-input" id="gh-path" placeholder="index.html" autocomplete="off">
+      </div>
+    </div>
+    <label class="gh-label">Personal Access Token</label>
+    <input class="gh-input" id="gh-token" type="password" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+    <p class="gh-hint">GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens<br>権限: Contents（読み書き）のみでOK</p>
+    <div class="gh-btns">
+      <button class="gh-cancel-btn" onclick="closeGhSettings()">キャンセル</button>
+      <button class="gh-save-btn" onclick="saveGhSettings()">💾 この設定を保存</button>
+    </div>
+    <div class="gh-status" id="gh-status"></div>
+  </div>
+</div>
+
+<!-- ─── PASSWORD MODAL ─── -->
+<div id="pw-modal">
+  <div class="pw-box">
+    <h3>🔐 管理者ログイン</h3>
+    <p>このホームページの編集は管理者のみ行えます。<br>パスワードを入力してください。</p>
+    <input class="pw-input" id="pw-inp" type="password" placeholder="パスワードを入力" autocomplete="current-password" onkeydown="if(event.key===&#39;Enter&#39;){event.preventDefault();doLogin();}">
+    <div class="pw-err" id="pw-err"></div>
+    <button class="pw-btn" type="button" onclick="doLogin()">ログイン</button>
+    <br>
+    <button class="pw-cancel" type="button" onclick="closePwModal()">キャンセル</button>
+  </div>
+</div>
+
+<!-- ─── EDIT BAR (edit mode only) ─── -->
+<div id="edit-bar">
+  <span>✏️ 編集モード — テキストをクリックして直接編集できます</span>
+  <div class="edit-bar-btns">
+    <button class="ebar-btn" onclick="openGhSettings()" style="background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)">⚙ GitHub設定</button>
+    <button class="ebar-btn save" onclick="saveToGitHub()" id="gh-publish-btn">🚀 GitHubに公開</button>
+    <button class="ebar-btn" onclick="saveAndDownload()" style="background:rgba(255,255,255,.15);font-size:.68rem">⬇ DL（手動用）</button>
+    <button class="ebar-btn exit" onclick="exitEdit()">✖ 終了</button>
+  </div>
+</div>
+
+<!-- BG BLOBS -->
+<div class="blobs"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+<!-- ─── NAV ─── -->
+<nav id="nav" class="scrolled">
+  <div class="nav-logo">
+    <small>東京理科大学 先進工学部 電子システム工学科</small>
+    谷口研究室
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about-wrap">研究室紹介</a></li>
+    <li><a href="#members-wrap">メンバー</a></li>
+    <li><a href="#research-wrap">研究テーマ</a></li>
+    <li><a href="#aa-wrap">受賞・活動</a></li>
+    <li><a href="#prof-wrap">教員</a></li>
+    <li><a href="#gallery-wrap">ギャラリー</a></li>
+  </ul>
+  <!-- NO edit button visible to public -->
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <!-- Slider track -->
+  <div class="hero-track-wrap">
+    <div class="hero-track" id="hTrack" style="transform: translateX(-100%);">
+    <div class="hero-slide">
+      <img src="./index_files/風景８.jpg" alt="">
+      <div class="hero-slide-overlay"></div>
+    </div>
+    <div class="hero-slide">
+      <img src="./index_files/芦田が学会発表している様子１.JPEG" alt="">
+      <div class="hero-slide-overlay"></div>
+    </div>
+    <div class="hero-slide">
+      <img src="./index_files/風景２.jpg" alt="">
+      <div class="hero-slide-overlay"></div>
+    </div></div>
+  </div>
+  <button class="hnav" id="hPrev" onclick="slideHero(-1)" style="">‹</button>
+  <button class="hnav" id="hNext" onclick="slideHero(1)" style="">›</button>
+  <div class="hdots" id="hDots"><span class="hdot" onclick="goHero(0)"></span><span class="hdot active" onclick="goHero(1)"></span><span class="hdot" onclick="goHero(2)"></span></div>
+
+  <!-- Hero edit controls (edit mode only) -->
+  <div class="hero-edit-btns edit-only" id="heroCtrl">
+    <button class="hbtn" onclick="document.getElementById(&#39;hUpload&#39;).click()">📁 ファイルから追加</button>
+    <button class="hbtn" onclick="openGdriveModal(&#39;hero&#39;)">🔗 Googleドライブから追加</button>
+    <button class="hbtn danger" onclick="removeHeroPhoto()">🗑 この写真を削除</button>
+  </div>
+  <input type="file" id="hUpload" accept="image/jpeg,image/jpg,image/png,image/webp" style="display:none" onchange="addHeroPhoto(event)">
+
+  <!-- Floating deco -->
+  <div class="mol m1"></div><div class="mol m2"></div><div class="mol m3"></div><div class="mol m4"></div>
+
+  <div class="hero-cnt">
+    <div class="hero-eyebrow">Taniguchi Laboratory · TUS</div>
+    <h1 class="hero-title" contenteditable="false" data-eid="hero-title"><span class="accent">谷口</span>研究室</h1>
+    <p class="hero-dept" contenteditable="false" data-eid="hero-dept">東京理科大学 先進工学部 電子システム工学科</p>
+    <div class="hero-kws">
+      <span class="kw kw1">電子ビーム露光技術</span>
+      <span class="kw kw2">ナノインプリント技術</span>
+      <span class="kw kw3">三次元ナノ構造作製</span>
+      <span class="kw kw4">ナノマイクロシステム</span>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"></path></svg>
+  </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 58" preserveAspectRatio="none" style="width:100%;display:block">
+      <path d="M0,38 C360,76 1080,0 1440,38 L1440,58 L0,58 Z" fill="#ffffff"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<div id="about-wrap">
+<div class="sec">
+  <div class="about-grid">
+    <div class="about-text reveal visible">
+      <div class="sec-label">About the Lab</div>
+      <h2 class="sec-title">研究室<span>紹介</span></h2>
+      <p contenteditable="false" data-eid="about-1">谷口研究室では，<strong>ナノテクノロジーでのものづくり</strong>を行っております。携帯電話やパソコンに代表されるような高性能・多機能製品に必要なデバイス（LSI，表示部品，光学部品，反射防止フィルムなど）に応用できるものを作っております。</p>
+      <p contenteditable="false" data-eid="about-2">作製方法は，微細な模様が作製できる<strong>電子ビーム技術・イオンビーム技術</strong>を用い，これを金型として樹脂等へ複製しております。新しいデバイスを設計し，その量産性を確かめることができます。</p>
+      <p contenteditable="false" data-eid="about-3">ナノテクノロジーは今日の高度情報化社会を支える基盤技術です。本研究室では，ナノメートルオーダー（10⁻⁹m）の超微細加工技術の研究を行っており，特に<strong>ナノオーダーでの3次元（3D）形状創製技術</strong>を重点的に行っております。</p>
+    </div>
+    <div class="stats-grid reveal visible">
+      <div class="stat-box">
+        <div class="stat-n" id="stat-papers">211</div>
+        <div class="stat-label">査読付き学術論文</div>
+        <div class="stat-src">TUS DB 自動取得</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n" id="stat-pres">604</div>
+        <div class="stat-label">学会発表件数</div>
+        <div class="stat-src">TUS DB 自動取得</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n" id="stat-pat">20</div>
+        <div class="stat-label">取得特許件数</div>
+        <div class="stat-src">TUS DB 自動取得</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-n" id="stat-yr">27<sup>+</sup></div>
+        <div class="stat-label">ナノインプリント研究歴（年）</div>
+        <div class="stat-src">1999年〜 自動計算</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ MEMBERS ═══ -->
+<div id="members-wrap">
+<div class="sec">
+  <div class="members-hero reveal visible">
+    <div class="sec-label">Our Team</div>
+    <h2 class="sec-title">メンバー<span>構成</span></h2>
+    <p style="font-size:.87rem;color:var(--text2);margin-top:6px" contenteditable="false" data-eid="mem-sub">ナノテクノロジーの研究に情熱を持つメンバーが集まっています。</p>
+    <div class="total-badge">
+      <div class="big" id="total-num">15</div>
+      <div class="lbl">
+        名の<span contenteditable="false" data-eid="mem-total-label" id="mem-total-label">メンバー</span><br>
+        （<span contenteditable="false" data-eid="mem-year" id="mem-year">2026年度</span>）
+      </div>
+    </div>
+  </div>
+  <div class="members-grid">
+
+    <!-- 指導教員 -->
+    <div class="mc mc-prof reveal visible" data-mcid="prof">
+      <div class="mc-icon"><svg viewBox="0 0 24 24"><path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6L23 9 12 3zm-1 14l-4-2.18V12l4 2.18V17zm1-4.32L8.5 11 12 9.68 15.5 11 12 12.68zm5 2.14L13 17v-2.82l4-2.18v2.14z"></path></svg></div>
+      <div class="mc-num-wrap">
+        <div class="mc-num" id="mc-num-prof"><span class="mc-n">1</span><small>名</small></div>
+        <div class="mc-stepper">
+          <button class="mc-step" onclick="stepMember(&#39;prof&#39;,1)">＋</button>
+          <button class="mc-step" onclick="stepMember(&#39;prof&#39;,-1)">－</button>
+        </div>
+      </div>
+      <div class="mc-role" contenteditable="false" data-eid="mc-role-prof">指導教員</div>
+      <div class="mc-en" contenteditable="false" data-eid="mc-en-prof">Professor</div>
+      <div class="mc-dots" id="mc-dots-prof"><span class="dot" style="background: var(--ocean);"></span></div>
+    </div>
+
+    <!-- 博士課程 -->
+    <div class="mc mc-doc reveal visible" data-mcid="doc">
+      <div class="mc-icon"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"></path></svg></div>
+      <div class="mc-num-wrap">
+        <div class="mc-num" id="mc-num-doc"><span class="mc-n">1</span><small>名</small></div>
+        <div class="mc-stepper">
+          <button class="mc-step" onclick="stepMember(&#39;doc&#39;,1)">＋</button>
+          <button class="mc-step" onclick="stepMember(&#39;doc&#39;,-1)">－</button>
+        </div>
+      </div>
+      <div class="mc-role" contenteditable="false" data-eid="mc-role-doc">博士課程</div>
+      <div class="mc-en" contenteditable="false" data-eid="mc-en-doc">Doctoral</div>
+      <div class="mc-dots" id="mc-dots-doc"><span class="dot" style="background: var(--coral);"></span></div>
+    </div>
+
+    <!-- M2 -->
+    <div class="mc mc-m2 reveal visible" data-mcid="m2">
+      <div class="mc-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path></svg></div>
+      <div class="mc-num-wrap">
+        <div class="mc-num" id="mc-num-m2"><span class="mc-n">4</span><small>名</small></div>
+        <div class="mc-stepper">
+          <button class="mc-step" onclick="stepMember(&#39;m2&#39;,1)">＋</button>
+          <button class="mc-step" onclick="stepMember(&#39;m2&#39;,-1)">－</button>
+        </div>
+      </div>
+      <div class="mc-role" contenteditable="false" data-eid="mc-role-m2">修士2年（M2）</div>
+      <div class="mc-en" contenteditable="false" data-eid="mc-en-m2">Master 2nd Year</div>
+      <div class="mc-dots" id="mc-dots-m2"><span class="dot" style="background: var(--green);"></span><span class="dot" style="background: var(--green);"></span><span class="dot" style="background: var(--green);"></span><span class="dot" style="background: var(--green);"></span></div>
+    </div>
+
+    <!-- M1 -->
+    <div class="mc mc-m1 reveal visible" data-mcid="m1">
+      <div class="mc-icon"><svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg></div>
+      <div class="mc-num-wrap">
+        <div class="mc-num" id="mc-num-m1"><span class="mc-n">4</span><small>名</small></div>
+        <div class="mc-stepper">
+          <button class="mc-step" onclick="stepMember(&#39;m1&#39;,1)">＋</button>
+          <button class="mc-step" onclick="stepMember(&#39;m1&#39;,-1)">－</button>
+        </div>
+      </div>
+      <div class="mc-role" contenteditable="false" data-eid="mc-role-m1">修士1年（M1）</div>
+      <div class="mc-en" contenteditable="false" data-eid="mc-en-m1">Master 1st Year</div>
+      <div class="mc-dots" id="mc-dots-m1"><span class="dot" style="background: var(--teal);"></span><span class="dot" style="background: var(--teal);"></span><span class="dot" style="background: var(--teal);"></span><span class="dot" style="background: var(--teal);"></span></div>
+    </div>
+
+    <!-- B4 -->
+    <div class="mc mc-b4 reveal visible" data-mcid="b4">
+      <div class="mc-icon"><svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg></div>
+      <div class="mc-num-wrap">
+        <div class="mc-num" id="mc-num-b4"><span class="mc-n">5</span><small>名</small></div>
+        <div class="mc-stepper">
+          <button class="mc-step" onclick="stepMember(&#39;b4&#39;,1)">＋</button>
+          <button class="mc-step" onclick="stepMember(&#39;b4&#39;,-1)">－</button>
+        </div>
+      </div>
+      <div class="mc-role" contenteditable="false" data-eid="mc-role-b4">学部4年（B4）</div>
+      <div class="mc-en" contenteditable="false" data-eid="mc-en-b4">Bachelor 4th Year</div>
+      <span class="mc-note" contenteditable="false" data-eid="mc-note-b4">内部進学予定</span>
+      <div class="mc-dots" id="mc-dots-b4"><span class="dot" style="background: var(--gold);"></span><span class="dot" style="background: var(--gold);"></span><span class="dot" style="background: var(--gold);"></span><span class="dot" style="background: var(--gold);"></span><span class="dot" style="background: var(--gold);"></span></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ RESEARCH ═══ -->
+<div id="research-wrap">
+<div class="sec">
+  <div class="sec-label reveal visible">Research Themes</div>
+  <h2 class="sec-title reveal visible">研究<span>テーマ</span></h2>
+  <div class="research-grid">
+    <!-- Card 0 -->
+    <div class="rc reveal visible" style="transition-delay:0s">
+      <div class="rc-bg" id="rcbg-0"></div><div class="rc-overlay"></div>
+      <div class="rc-content">
+        <div class="rc-num">01</div>
+        <h3 contenteditable="false" data-eid="rc0-h">三次元ナノ構造作製技術の開発</h3>
+        <p contenteditable="false" data-eid="rc0-p">加速電圧を変化させる電子ビーム露光技術で，最高5nmの深さ分解能を達成。100nm以下で深さを変化させた三次元ナノモールドを作製し，パターンを転写・複製できます。LSIリソグラフィやホログラフィック光学素子など，正確な深さ制御が必要なデバイスの作製に有効です。</p>
+        <span class="rc-tag">EBL · 3D Nanostructure</span>
+      </div>
+      <div class="rc-btn-wrap edit-only">
+        <button class="rc-pbtn" onclick="triggerRcFile(0)">📁 ファイルから設定</button>
+        <button class="rc-pbtn" onclick="openGdriveModal(0)">🔗 Driveから設定</button>
+        <button class="rc-pbtn danger" id="rc-del-0" onclick="removeRcBg(0)" style="display:none">🗑 背景を削除</button>
+      </div>
+    </div>
+    <!-- Card 1 -->
+    <div class="rc reveal visible" style="transition-delay:.1s">
+      <div class="rc-bg" id="rcbg-1"></div><div class="rc-overlay"></div>
+      <div class="rc-content">
+        <div class="rc-num">02</div>
+        <h3 contenteditable="false" data-eid="rc1-h">ナノインプリントリソグラフィ</h3>
+        <p contenteditable="false" data-eid="rc1-p">3Dナノスタンプを作製する技術と，そのスタンプを押して転写するナノインプリントリソグラフィの研究を行っています。次世代リソグラフィ技術として，低コスト・高スループットでのナノパターン形成を実現します。</p>
+        <span class="rc-tag">NIL · Nanoimprint</span>
+      </div>
+      <div class="rc-btn-wrap edit-only">
+        <button class="rc-pbtn" onclick="triggerRcFile(1)">📁 ファイルから設定</button>
+        <button class="rc-pbtn" onclick="openGdriveModal(1)">🔗 Driveから設定</button>
+        <button class="rc-pbtn danger" id="rc-del-1" onclick="removeRcBg(1)" style="display:none">🗑 背景を削除</button>
+      </div>
+    </div>
+    <!-- Card 2 -->
+    <div class="rc reveal visible" style="transition-delay:.2s">
+      <div class="rc-bg" id="rcbg-2"></div><div class="rc-overlay"></div>
+      <div class="rc-content">
+        <div class="rc-num">03</div>
+        <h3 contenteditable="false" data-eid="rc2-h">ダイヤモンドの三次元超微細加工</h3>
+        <p contenteditable="false" data-eid="rc2-p">ダイヤモンドなどの難加工材の3次元超微細加工に関する研究です。ダイヤモンドからの電子放出や電子ビーム援用化学加工を活用し，極限的な材料特性を持つダイヤモンドの精密加工技術を開発しています。</p>
+        <span class="rc-tag">Diamond · Hard Material</span>
+      </div>
+      <div class="rc-btn-wrap edit-only">
+        <button class="rc-pbtn" onclick="triggerRcFile(2)">📁 ファイルから設定</button>
+        <button class="rc-pbtn" onclick="openGdriveModal(2)">🔗 Driveから設定</button>
+        <button class="rc-pbtn danger" id="rc-del-2" onclick="removeRcBg(2)" style="display:none">🗑 背景を削除</button>
+      </div>
+    </div>
+  </div>
+  <input type="file" id="rcf-0" accept="image/jpeg,image/jpg,image/png,image/webp" style="display:none" onchange="onRcFile(0,event)">
+  <input type="file" id="rcf-1" accept="image/jpeg,image/jpg,image/png,image/webp" style="display:none" onchange="onRcFile(1,event)">
+  <input type="file" id="rcf-2" accept="image/jpeg,image/jpg,image/png,image/webp" style="display:none" onchange="onRcFile(2,event)">
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ AWARDS + STUDENT ACTIVITIES ═══ -->
+<div id="aa-wrap">
+<div class="sec">
+  <div class="sec-label reveal visible">Achievements &amp; Activities</div>
+  <h2 class="sec-title reveal visible">受賞歴 &amp; 学生<span>活動</span></h2>
+  <div class="aa-grid">
+    <!-- Left: auto-fetched awards -->
+    <div class="aa-col reveal visible">
+      <div class="aa-col-head">
+        <div>
+          <div class="sec-label" style="margin:0;font-size:.6rem">教員受賞歴</div>
+          <h3>谷口教授 受賞</h3>
+        </div>
+        <span class="aa-badge" id="aw-badge">7件</span>
+        <span class="aa-auto">TUS DB 自動取得</span>
+      </div>
+      <div class="aa-scroll" id="aw-list"><div class="aw"><span class="aw-date">2026.03</span><span class="aw-text">優秀研究ポスター賞</span></div><div class="aw"><span class="aw-date">2025.10</span><span class="aw-text">30年ナノインプリント先駆者賞</span></div><div class="aw"><span class="aw-date">2025.10</span><span class="aw-text">令和七年度 東京都功労者表彰（技術振興功労）</span></div><div class="aw"><span class="aw-date">2025.02</span><span class="aw-text">第17回 岩木トライボコーティングネットワークアワード（岩木賞）大賞</span></div><div class="aw"><span class="aw-date">2018.02</span><span class="aw-text">学校法人 東京理科大学 優秀研究者特別賞</span></div><div class="aw"><span class="aw-date">2010.12</span><span class="aw-text">学校法人 東京理科大学 優秀研究者奨励賞</span></div><div class="aw"><span class="aw-date">2001.06</span><span class="aw-text">安藤博記念学術奨励賞</span></div></div>
+    </div>
+    <!-- Right: editable student activities -->
+    <div class="aa-col reveal visible">
+      <div class="aa-col-head">
+        <div>
+          <div class="sec-label" style="margin:0;font-size:.6rem">Student Activities</div>
+          <h3>学生 学会活動</h3>
+        </div>
+        <span class="aa-badge gold" id="act-badge">1件</span>
+      </div>
+      <div class="aa-scroll" id="act-list">
+        <div id="act-empty" style="display: none;">学会発表・受賞を追加してください</div>
+      <div class="act" data-id="mo7we938i33ynri946">
+      <span class="act-date">2026.3</span>
+      <span class="act-event">第73回 応用物理学会 春季学術講演会</span>
+      <span class="act-detail">B4（M1になる学生）の3名が、口頭で研究発表を行いました.</span>
+      <span class="act-type presentation">発表</span>
+      <button class="act-del" onclick="deleteActivity(&#39;mo7we938i33ynri946&#39;)">×</button></div></div>
+      <div class="act-add-row">
+        <button class="act-add-btn" onclick="toggleActForm()">＋ 学会活動・受賞を追加</button>
+        <div class="act-form" id="act-form">
+          <div class="act-form-2col">
+            <input id="f-date" placeholder="年月 例: 2025.10" maxlength="12">
+            <select id="f-type">
+              <option value="presentation">発表</option>
+              <option value="award">受賞</option>
+              <option value="best_paper">最優秀賞</option>
+            </select>
+          </div>
+          <input id="f-event" placeholder="学会・イベント名">
+          <input id="f-detail" placeholder="発表タイトル・受賞名">
+          <button class="act-submit" onclick="addActivity()">＋ 追加する</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══ PROFESSOR ═══ -->
+<div id="prof-wrap">
+<div class="sec">
+  <div class="sec-label reveal visible">Faculty</div>
+  <h2 class="sec-title reveal visible">教員<span>紹介</span></h2>
+  <div class="prof-card reveal visible">
+    <div class="prof-photo-col">
+      <div class="prof-photo" id="prof-photo">
+        <svg viewBox="0 0 100 100" fill="none"><circle cx="50" cy="38" r="22" stroke="#0077b6" stroke-width="2.5"></circle><path d="M10 88 Q10 62 50 62 Q90 62 90 88" stroke="#0077b6" stroke-width="2.5" fill="none"></path></svg>
+      </div>
+      <button class="photo-up-btn" onclick="document.getElementById(&#39;prof-input&#39;).click()">📷 写真を変更</button>
+      <input type="file" id="prof-input" accept="image/*" style="display:none" onchange="updateProfPhoto(event)">
+    </div>
+    <div>
+      <h2 class="prof-name" contenteditable="false" data-eid="prof-name">谷口 淳</h2>
+      <p class="prof-pos" contenteditable="false" data-eid="prof-pos"><strong>教授</strong>　東京理科大学 先進工学部 電子システム工学科</p>
+      <div class="prof-body">
+        <p contenteditable="false" data-eid="prof-edu"><strong>学歴：</strong>1994年 東京理科大学 基礎工学部 電子応用工学科 卒業。1999年 東京理科大学大学院 基礎工学研究科 電子応用工学専攻 博士課程修了。博士（工学）。</p>
+        <p contenteditable="false" data-eid="prof-field"><strong>専門分野：</strong>ナノテクノロジー／超微細加工技術／ナノインプリント技術。1999年よりナノインプリント技術の研究を継続して行い，応用物理学会 ナノインプリント技術研究会 運営委員長（2021〜2026年）などを歴任。</p>
+        <p contenteditable="false" data-eid="prof-contact"><strong>連絡先：</strong>〒125-8585 東京都葛飾区新宿6-3-1　TEL: 03-5876-1717（代表）</p>
+      </div>
+      <div class="prof-links">
+        <a class="pl" href="https://www.tus.ac.jp/ridai/doc/ji/RIJIA01Detail.php?act=pos&amp;kin=ken&amp;diu=2420" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86zm2-15.86c1.03.13 2 .45 2.87.93H13v-.93zM13 7h5.24c.25.31.48.65.68 1H13V7zm0 3h6.74c.08.33.15.66.19 1H13v-1zm0 9.93V19h2.87c-.87.48-1.84.8-2.87.93zM18.24 17H13v-1h5.92c-.2.35-.43.69-.68 1zm1.5-3H13v-1h6.93c-.04.34-.11.67-.19 1z"></path></svg>
+          研究者データベース
+        </a>
+        <a class="pl" href="https://www.tus.ac.jp/academics/teacher/lightbox/2420.html" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+          大学ホームページ
+        </a>
+        <a class="pl" href="https://tus.elsevierpure.com/ja/persons/jun-taniguchi" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"></path></svg>
+          Elsevier Pure
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ GALLERY ═══ -->
+<div id="gallery-wrap">
+<div class="sec">
+  <div class="sec-label reveal visible">Gallery</div>
+  <h2 class="sec-title reveal visible">ギャラリー</h2>
+
+  <div class="gal-header reveal visible">
+    <div class="gal-year-tabs" id="gal-tabs">
+      <button class="gal-tab active" data-year="all" onclick="filterGallery(&#39;all&#39;)">すべて</button>
+    <button class="gal-tab" data-year="2025">2025年</button><button class="gal-tab" data-year="2024">2024年</button><button class="gal-tab" data-year="2023">2023年</button></div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <span class="gal-count" id="gal-count">28枚</span>
+      <!-- Always-visible upload button in edit mode -->
+      <button class="gal-add-btn edit-only" onclick="triggerGalUpload()">
+        📁 ファイルから追加
+      </button>
+      <button class="gal-add-btn edit-only" onclick="openGdriveModal(&#39;gallery&#39;)" style="background:var(--green)">
+        🔗 Driveから追加
+      </button>
+    </div>
+  </div>
+
+  <div id="gal-root"><div class="gal-group"><div class="gal-group-header"><span class="gal-group-year">2025年</span><div class="gal-group-line"></div><span class="gal-group-n">18枚</span></div><div class="gal-strip-outer"><div class="gal-strip"><div class="gi" data-gid="19dad6d38c6nzqvqe"><div class="gi-img" data-gid="19dad6d38c6nzqvqe"><img src="./index_files/アッシーの笑み.JPEG" alt="合間の時間に観光" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6nzqvqe" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption">合間の時間に観光</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6nzqvqe"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6nzqvqe">合間の時間に観光</textarea></div></div></div><div class="gi" data-gid="19dad6d38c6odxwyi"><div class="gi-img" data-gid="19dad6d38c6odxwyi"><img src="./index_files/みんなの様子１.JPEG" alt="空港に到着" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6odxwyi" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption">空港に到着</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6odxwyi"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6odxwyi">空港に到着</textarea></div></div></div><div class="gi" data-gid="19dad6d38c639d76l"><div class="gi-img" data-gid="19dad6d38c639d76l"><img src="./index_files/みんなの様子２.JPEG" alt="一番おいしかったぁ" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c639d76l" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption">一番おいしかったぁ</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c639d76l"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c639d76l">一番おいしかったぁ</textarea></div></div></div><div class="gi" data-gid="19dad6d38c6jbwjmo"><div class="gi-img" data-gid="19dad6d38c6jbwjmo"><img src="./index_files/芦田が学会発表している様子１.JPEG" alt="英語で研究発表..." loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6jbwjmo" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption">英語で研究発表...</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6jbwjmo"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6jbwjmo">英語で研究発表...</textarea></div></div></div><div class="gi" data-gid="19dad6d38c6h9y4o5"><div class="gi-img" data-gid="19dad6d38c6h9y4o5"><img src="./index_files/柴崎先輩のポスター写真.jpg" alt="草" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6h9y4o5" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption">草</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6h9y4o5"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6h9y4o5">草</textarea></div></div></div><div class="gi" data-gid="19dad6d38c6isjccc"><div class="gi-img" data-gid="19dad6d38c6isjccc"><img src="./index_files/柴崎先輩の写真１.JPEG" alt="草2" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6isjccc" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption">草2</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6isjccc"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6isjccc">草2</textarea></div></div></div><div class="gi" data-gid="19dad6d38c61t6lpp"><div class="gi-img" data-gid="19dad6d38c61t6lpp"><img src="./index_files/若狭先輩のポスター写真.jpg" alt="ポスター発表！" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c61t6lpp" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption">ポスター発表！</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c61t6lpp"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c61t6lpp">ポスター発表！</textarea></div></div></div><div class="gi" data-gid="19dad6d38c6e0kj5y"><div class="gi-img" data-gid="19dad6d38c6e0kj5y"><img src="./index_files/眺めている写真.JPEG" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6e0kj5y" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6e0kj5y"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6e0kj5y"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6auypwr"><div class="gi-img" data-gid="19dad6d38c6auypwr"><img src="./index_files/藤枝のポスター写真.jpg" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6auypwr" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6auypwr"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6auypwr"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6j2chod"><div class="gi-img" data-gid="19dad6d38c6j2chod"><img src="./index_files/風景１.JPEG" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6j2chod" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6j2chod"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6j2chod"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6r72nnv"><div class="gi-img" data-gid="19dad6d38c6r72nnv"><img src="./index_files/風景２.JPEG" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6r72nnv" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6r72nnv"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6r72nnv"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6rhygqz"><div class="gi-img" data-gid="19dad6d38c6rhygqz"><img src="./index_files/風景３.JPEG" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6rhygqz" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6rhygqz"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6rhygqz"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6fdmsad"><div class="gi-img" data-gid="19dad6d38c6fdmsad"><img src="./index_files/風景５.jpg" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6fdmsad" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6fdmsad"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6fdmsad"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6vvucwt"><div class="gi-img" data-gid="19dad6d38c6vvucwt"><img src="./index_files/風景６.jpg" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6vvucwt" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6vvucwt"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6vvucwt"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6iob5rr"><div class="gi-img" data-gid="19dad6d38c6iob5rr"><img src="./index_files/風景８.jpg" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6iob5rr" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6iob5rr"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6iob5rr"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c64wsp99"><div class="gi-img" data-gid="19dad6d38c64wsp99"><img src="./index_files/風景９.jpg" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c64wsp99" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c64wsp99"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c64wsp99"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6ehqrxq"><div class="gi-img" data-gid="19dad6d38c6ehqrxq"><img src="./index_files/風景１０.jpg" alt="あの有名な..." loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6ehqrxq" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption">あの有名な...</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6ehqrxq"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6ehqrxq">あの有名な...</textarea></div></div></div><div class="gi" data-gid="19dad6d38c6d65zvn"><div class="gi-img" data-gid="19dad6d38c6d65zvn"><img src="./index_files/平田が学会発表している様子１.JPEG" alt="英語で学会発表！" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6d65zvn" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2025年9月</div><p class="gi-caption">英語で学会発表！</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2025年9月" data-gid="19dad6d38c6d65zvn"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6d65zvn">英語で学会発表！</textarea></div></div></div></div></div></div><div class="gal-group"><div class="gal-group-header"><span class="gal-group-year">2024年</span><div class="gal-group-line"></div><span class="gal-group-n">4枚</span></div><div class="gal-strip-outer"><div class="gal-strip"><div class="gi" data-gid="19dad6d38c6zx7mw5"><div class="gi-img" data-gid="19dad6d38c6zx7mw5"><img src="./index_files/アッシーの写真.jpg" alt="OB会の様子！" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6zx7mw5" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2024年9月</div><p class="gi-caption">OB会の様子！</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2024年9月" data-gid="19dad6d38c6zx7mw5"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6zx7mw5">OB会の様子！</textarea></div></div></div><div class="gi" data-gid="19dad6d38c6y9ve9g"><div class="gi-img" data-gid="19dad6d38c6y9ve9g"><img src="./index_files/山口，柴崎，檀上先輩たちの写真.jpg" alt="いい笑顔の先輩たち" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6y9ve9g" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2024年9月</div><p class="gi-caption">いい笑顔の先輩たち</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2024年9月" data-gid="19dad6d38c6y9ve9g"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6y9ve9g">いい笑顔の先輩たち</textarea></div></div></div><div class="gi" data-gid="19dad6d38c609fvd9"><div class="gi-img" data-gid="19dad6d38c609fvd9"><img src="./index_files/若狭先輩の写真.jpg" alt="OB会の様子！" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c609fvd9" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2024年9月</div><p class="gi-caption">OB会の様子！</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2024年9月" data-gid="19dad6d38c609fvd9"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c609fvd9">OB会の様子！</textarea></div></div></div><div class="gi" data-gid="19dad6d38c64bcuw5"><div class="gi-img" data-gid="19dad6d38c64bcuw5"><img src="./index_files/藤枝のピースの写真.jpg" alt="OB会の様子！" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c64bcuw5" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2024年9月</div><p class="gi-caption">OB会の様子！</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2024年9月" data-gid="19dad6d38c64bcuw5"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c64bcuw5">OB会の様子！</textarea></div></div></div></div></div></div><div class="gal-group"><div class="gal-group-header"><span class="gal-group-year">2023年</span><div class="gal-group-line"></div><span class="gal-group-n">6枚</span></div><div class="gal-strip-outer"><div class="gal-strip"><div class="gi" data-gid="19dad6d38c6e4x4vc"><div class="gi-img" data-gid="19dad6d38c6e4x4vc"><img src="./index_files/檀上先輩ポスターの様子2.jpeg" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6e4x4vc" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2023年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2023年9月" data-gid="19dad6d38c6e4x4vc"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6e4x4vc"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6b41ltn"><div class="gi-img" data-gid="19dad6d38c6b41ltn"><img src="./index_files/猫.jpg" alt="猫" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6b41ltn" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2023年9月</div><p class="gi-caption">猫</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2023年9月" data-gid="19dad6d38c6b41ltn"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6b41ltn">猫</textarea></div></div></div><div class="gi" data-gid="19dad6d38c6zketyl"><div class="gi-img" data-gid="19dad6d38c6zketyl"><img src="./index_files/風景１.jpg" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6zketyl" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2023年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2023年9月" data-gid="19dad6d38c6zketyl"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6zketyl"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6uzxhz0"><div class="gi-img" data-gid="19dad6d38c6uzxhz0"><img src="./index_files/風景２.jpg" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6uzxhz0" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2023年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2023年9月" data-gid="19dad6d38c6uzxhz0"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6uzxhz0"></textarea></div></div></div><div class="gi" data-gid="19dad6d38c6q02gy8"><div class="gi-img" data-gid="19dad6d38c6q02gy8"><img src="./index_files/風景３.jpg" alt="" loading="lazy"></div><button class="gi-del" data-gid="19dad6d38c6q02gy8" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2023年9月</div><p class="gi-caption empty">コメントなし</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2023年9月" data-gid="19dad6d38c6q02gy8"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="19dad6d38c6q02gy8"></textarea></div></div></div><div class="gi" data-gid="mo7wswfv2aj5uvfx059"><div class="gi-img" data-gid="mo7wswfv2aj5uvfx059"><img src="./index_files/猫.jpg" alt="猫" loading="lazy"></div><button class="gi-del" data-gid="mo7wswfv2aj5uvfx059" title="削除">×</button><div class="gi-body"><div class="gi-date-badge"><svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"></path></svg>2023年9月</div><p class="gi-caption">猫</p><div class="gi-edit-fields"><div class="gi-inp-label">📅 日付</div><input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="2023年9月" data-gid="mo7wswfv2aj5uvfx059"><div class="gi-inp-label">💬 コメント（省略可）</div><textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="mo7wswfv2aj5uvfx059">猫</textarea></div></div></div></div></div></div></div>
+  <input type="file" id="gal-inp" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif" multiple="" style="display:none" onchange="addGalleryPhotos(event)">
+</div>
+</div>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="foot-logo">谷口研究室</div>
+    <p contenteditable="false" data-eid="footer-addr">東京理科大学 先進工学部 電子システム工学科<br>〒125-8585 東京都葛飾区新宿6-3-1<br>TEL: 03-5876-1717（代表）</p>
+  </div>
+  <div class="foot-right">
+    <p>© <span contenteditable="false" data-eid="footer-year">2025</span> 谷口研究室 / Tokyo University of Science</p>
+    <p style="margin-top:5px" contenteditable="false" data-eid="footer-sub">Nano/Micro Systems · Nanoimprint · Electron Beam Lithography</p>
+  </div>
+</footer>
+
+<!-- GDRIVE URL MODAL -->
+<div id="gdrive-modal">
+  <div class="gdrive-box">
+    <h3 id="gdrive-title">🔗 Googleドライブから写真を追加</h3>
+    <p id="gdrive-desc">GoogleドライブでファイルをクリックしてURLをコピーして貼り付けてください。<br>
+    共有設定を「<strong>リンクを知っている全員が閲覧可</strong>」にしてください。</p>
+    <!-- 1枚用（ヒーロー・研究テーマ背景） -->
+    <div id="gdrive-single">
+      <input class="gdrive-inp" id="gdrive-inp" type="text" placeholder="https://drive.google.com/file/d/.../view?usp=sharing" onkeydown="if(event.key=&#39;Enter&#39;){event.preventDefault();confirmGdrive();}">
+    </div>
+    <!-- 複数枚用（ギャラリー） -->
+    <div id="gdrive-multi" style="display:none">
+      <textarea class="gdrive-inp" id="gdrive-multi-inp" rows="6" style="resize:vertical" placeholder="URLを1行に1つ貼り付け（複数まとめて追加できます）
+https://drive.google.com/file/d/.../view
+https://drive.google.com/file/d/.../view"></textarea>
+    </div>
+    <div class="gdrive-err" id="gdrive-err"></div>
+    <div class="gdrive-btns">
+      <button class="gdrive-ok" onclick="confirmGdrive()">追加する</button>
+      <button class="gdrive-cancel" onclick="closeGdriveModal()">キャンセル</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lb" onclick="closeLB()">
+  <span id="lb-x">✕</span>
+  <div style="position:relative;max-width:90vw;max-height:88vh">
+    <img id="lb-img" src="file:///C:/Users/12252/OneDrive/%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97/Downloads/index%20(3).html" alt="" style="display:block;max-width:90vw;max-height:88vh;border-radius:12px;box-shadow:0 0 80px rgba(0,119,182,.25)">
+    <div class="lb-info" id="lb-info" style="display:none">
+      <div class="lb-info-caption" id="lb-caption"></div>
+      <div class="lb-info-date" id="lb-date"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ SCRIPT ═══════════ -->
+<!-- MASCOT -->
+<div id="mascot-wrap">
+  <div id="mascot-bubble" aria-live="polite" class="">ここでやめる？それとも進む？</div>
+  <div id="mascot" class="idle" title="ナノくん">
+    <svg width="96" height="116" viewBox="0 0 96 116" xmlns="http://www.w3.org/2000/svg">
+      <!-- shadow -->
+      <ellipse cx="48" cy="113" rx="24" ry="5" fill="rgba(0,0,0,.1)"></ellipse>
+      <!-- tail -->
+      <ellipse cx="80" cy="86" rx="14" ry="9" fill="#81c784" transform="rotate(-22 80 86)"></ellipse>
+      <ellipse cx="80" cy="86" rx="9" ry="5.5" fill="#a5d6a7" transform="rotate(-22 80 86)"></ellipse>
+      <!-- body -->
+      <ellipse cx="48" cy="76" rx="31" ry="35" fill="#81c784"></ellipse>
+      <!-- belly -->
+      <ellipse cx="48" cy="83" rx="19" ry="23" fill="#c8e6c9"></ellipse>
+      <!-- head -->
+      <circle cx="48" cy="40" r="29" fill="#81c784"></circle>
+      <!-- ear left -->
+      <ellipse cx="23" cy="18" rx="7" ry="9" fill="#66bb6a" transform="rotate(-15 23 18)"></ellipse>
+      <ellipse cx="23" cy="18" rx="4" ry="5.5" fill="#a5d6a7" transform="rotate(-15 23 18)"></ellipse>
+      <!-- ear right -->
+      <ellipse cx="73" cy="18" rx="7" ry="9" fill="#66bb6a" transform="rotate(15 73 18)"></ellipse>
+      <ellipse cx="73" cy="18" rx="4" ry="5.5" fill="#a5d6a7" transform="rotate(15 73 18)"></ellipse>
+      <!-- snout -->
+      <ellipse cx="48" cy="52" rx="14" ry="10" fill="#a5d6a7"></ellipse>
+      <!-- nostrils -->
+      <circle cx="44" cy="50" r="2.5" fill="#388e3c" opacity=".5"></circle>
+      <circle cx="52" cy="50" r="2.5" fill="#388e3c" opacity=".5"></circle>
+      <!-- eyes white -->
+      <circle cx="36" cy="32" r="10" fill="#fff"></circle>
+      <circle cx="60" cy="32" r="10" fill="#fff"></circle>
+      <!-- pupils -->
+      <circle id="mc-pupil-l" cx="37" cy="33" r="6" fill="#1b5e20"></circle>
+      <circle id="mc-pupil-r" cx="61" cy="33" r="6" fill="#1b5e20"></circle>
+      <!-- pupils shine -->
+      <circle cx="39" cy="31" r="2.2" fill="#fff"></circle>
+      <circle cx="63" cy="31" r="2.2" fill="#fff"></circle>
+      <!-- smile -->
+      <path id="mc-mouth" d="M39 56 Q48 64 57 56" stroke="#2e7d32" stroke-width="2.5" fill="none" stroke-linecap="round"></path>
+      <!-- cheeks -->
+      <circle cx="28" cy="45" r="6" fill="#ef9a9a" opacity=".5"></circle>
+      <circle cx="68" cy="45" r="6" fill="#ef9a9a" opacity=".5"></circle>
+      <!-- arms -->
+      <ellipse cx="17" cy="73" rx="9" ry="5.5" fill="#81c784" transform="rotate(28 17 73)"></ellipse>
+      <ellipse cx="79" cy="73" rx="9" ry="5.5" fill="#81c784" transform="rotate(-28 79 73)"></ellipse>
+      <!-- feet -->
+      <ellipse cx="34" cy="108" rx="13" ry="7" fill="#66bb6a"></ellipse>
+      <ellipse cx="60" cy="108" rx="13" ry="7" fill="#66bb6a"></ellipse>
+      <!-- spots -->
+      <circle cx="42" cy="68" r="5" fill="#66bb6a" opacity=".4"></circle>
+      <circle cx="55" cy="60" r="3.5" fill="#66bb6a" opacity=".35"></circle>
+    </svg>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ═══════════════════════════════════════════════════════════
+   ★ ページ読み込み直後のきれいなHTMLをここで保存
+     → saveAndDownload() でこれをテンプレートとして使う
+     → outerHTML(ライブDOM)に頼らないので確実に動く
+═══════════════════════════════════════════════════════════ */
+const _ORIGINAL_HTML = document.documentElement.outerHTML;
+
+/* ── PASSWORD ── パスワード変更: 下の値を書き換えてください */
+const ADMIN_PW = 'taniguchi2025';
+
+/* ═══════════════════════════════════════════════
+   DATA STORE  D = single source of truth
+   優先順位: HTML埋め込みデータ > localStorage
+═══════════════════════════════════════════════ */
+const D = (function loadState() {
+  const def = {
+    texts:{}, heroPhotos:[], rcBg:{},
+    activities:[], gallery:[], members:{}, profPhoto:''
+  };
+  function merge(a, b) {
+    const o = Object.assign({}, a);
+    for(const k of Object.keys(b||{})) {
+      if(b[k] && typeof b[k]==='object' && !Array.isArray(b[k]))
+        o[k] = merge(a[k]||{}, b[k]);
+      else o[k] = b[k];
+    }
+    return o;
+  }
+  // 1. HTMLに焼き込まれたデータ（保存済みファイル）
+  try {
+    const emb = document.getElementById('embedded-data');
+    if(emb){
+      const txt = emb.textContent.trim();
+      if(txt && txt !== 'null'){
+        const parsed = JSON.parse(txt);
+        if(parsed && typeof parsed === 'object') return merge(def, parsed);
+      }
+    }
+  } catch(e) { console.warn('embedded-data parse error', e); }
+  // 2. localStorage
+  try {
+    const ls = JSON.parse(localStorage.getItem('tlab_v4')||'null');
+    if(ls) return merge(def, ls);
+  } catch(e) { console.warn('localStorage parse error', e); }
+  return def;
+})();
+
+function persist() {
+  try { localStorage.setItem('tlab_v4', JSON.stringify(D)); } catch(e){}
+}
+
+/* ═══ MEMBERS ═══ */
+const MC_COLORS  = {prof:'var(--ocean)',doc:'var(--coral)',m2:'var(--green)',m1:'var(--teal)',b4:'var(--gold)'};
+const MC_DEFAULT = {prof:1,doc:1,m2:4,m1:4,b4:5};
+
+function getMemberCounts(){ return Object.assign({}, MC_DEFAULT, D.members||{}); }
+
+function renderAllMembers() {
+  const counts = getMemberCounts();
+  let total = 0;
+  Object.entries(counts).forEach(([id,n]) => {
+    total += n;
+    const el = document.querySelector('#mc-num-'+id+' .mc-n');
+    if(el) el.textContent = n;
+    renderDots(id, n);
+  });
+  const t = document.getElementById('total-num');
+  if(t) t.textContent = total;
+}
+
+function renderDots(id, n) {
+  const el = document.getElementById('mc-dots-'+id);
+  if(!el) return;
+  const c = MC_COLORS[id]||'var(--ocean)';
+  el.innerHTML = '';
+  for(let i=0;i<n;i++){
+    const d = document.createElement('span');
+    d.className='dot'; d.style.background=c; el.appendChild(d);
+  }
+}
+
+function stepMember(id, delta) {
+  if(!D.members) D.members={};
+  D.members[id] = Math.max(0, (getMemberCounts()[id]||0)+delta);
+  renderAllMembers(); persist();
+}
+
+/* ═══ REVEAL / NAV ═══ */
+const revObs = new IntersectionObserver(
+  es => es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); }),
+  {threshold:.1}
+);
+document.querySelectorAll('.reveal').forEach(el=>revObs.observe(el));
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled', scrollY>40);
+});
+(function(){
+  const el=document.getElementById('stat-yr');
+  if(el) el.innerHTML=(new Date().getFullYear()-1999)+'<sup>+</sup>';
+})();
+
+/* ═══ AWARDS ═══ */
+const DEFAULT_AWARDS=[
+  {date:'2026.03',name:'優秀研究ポスター賞'},
+  {date:'2025.10',name:'30年ナノインプリント先駆者賞'},
+  {date:'2025.10',name:'令和七年度 東京都功労者表彰（技術振興功労）'},
+  {date:'2025.02',name:'第17回 岩木トライボコーティングネットワークアワード（岩木賞）大賞'},
+  {date:'2018.02',name:'学校法人 東京理科大学 優秀研究者特別賞'},
+  {date:'2010.12',name:'学校法人 東京理科大学 優秀研究者奨励賞'},
+  {date:'2001.06',name:'安藤博記念学術奨励賞'},
+];
+
+/* 論文数・学会発表・特許：TUS DBへの直接アクセスはCORS制約で不可のため
+   ハードコード値を表示しつつ、将来的にサーバーAPIが用意された場合に備えて
+   fetchAwards() を呼び出す設計を維持する */
+async function fetchAwards(){
+  try{
+    const r=await Promise.race([
+      fetch('/api/stats'),
+      new Promise((_,j)=>setTimeout(()=>j(new Error('timeout')),3000))
+    ]);
+    if(!r.ok) throw new Error('not ok');
+    const s=await r.json();
+    if(s.papers)        document.getElementById('stat-papers').textContent=s.papers;
+    if(s.presentations) document.getElementById('stat-pres').textContent=s.presentations;
+    if(s.patents)       document.getElementById('stat-pat').textContent=s.patents;
+    if(s.research_years){
+      const e=document.getElementById('stat-yr');
+      if(e) e.innerHTML=s.research_years+'<sup>+</sup>';
+    }
+    renderAwards((s.awards&&s.awards.length)?s.awards:DEFAULT_AWARDS);
+  }catch(e){
+    /* API未接続の場合：ハードコード値をそのまま表示 / 受賞歴はデフォルトを使用 */
+    renderAwards(DEFAULT_AWARDS);
+  }
+}
+/* ナノインプリント研究歴は常に自動計算（1999年〜現在） */
+(function(){
+  const el=document.getElementById('stat-yr');
+  if(el) el.innerHTML=(new Date().getFullYear()-1999)+'<sup>+</sup>';
+})();
+
+function renderAwards(list){
+  const el=document.getElementById('aw-list');if(!el)return;
+  el.innerHTML=list.map(a=>`<div class="aw"><span class="aw-date">${a.date}</span><span class="aw-text">${a.name}</span></div>`).join('');
+  const b=document.getElementById('aw-badge');if(b)b.textContent=list.length+'件';
+}
+renderAwards(DEFAULT_AWARDS);
+fetchAwards();
+
+/* ═══ AUTH ═══
+   ?admin がURLにある → 常にパスワードモーダルを表示
+   sessionStorage には頼らない（環境による差異をなくす）
+═══════════════════════════════════════════════ */
+function openPwModal(){
+  const modal = document.getElementById('pw-modal');
+  if(!modal) return;
+  modal.classList.add('open');
+  /* フォーカスはDOMが完全に準備されてから */
+  requestAnimationFrame(()=>{
+    const inp = document.getElementById('pw-inp');
+    if(inp){ inp.value=''; inp.focus(); }
+  });
+}
+function closePwModal(){
+  const modal = document.getElementById('pw-modal');
+  if(modal) modal.classList.remove('open');
+  const err = document.getElementById('pw-err');
+  if(err) err.textContent='';
+  /* URLから ?admin を除去（見た目をきれいに保つ） */
+  if(location.search.includes('admin'))
+    history.replaceState(null,'',location.pathname);
+}
+function doLogin(){
+  const inp = document.getElementById('pw-inp');
+  const err = document.getElementById('pw-err');
+  if(!inp) return;
+  const pw = inp.value.trim();
+  if(!pw) return;
+  if(pw === ADMIN_PW){
+    closePwModal();
+    enterEditMode();
+    toast('ログインしました ✓ 編集できます');
+  } else {
+    if(err) err.textContent='パスワードが違います';
+    inp.value='';
+    inp.focus();
+  }
+}
+
+/* ページが完全に初期化された後に ?admin チェックを行う */
+window.addEventListener('DOMContentLoaded', function(){
+  if(new URLSearchParams(location.search).has('admin')){
+    /* 少し遅らせてページ初期化IIFEが確実に終わってから */
+    setTimeout(openPwModal, 150);
+  }
+}, { once: true });
+
+/* ═══ DISPLAY DATA (ページ読み込み・更新時に表示へ反映) ═══ */
+function applyDisplayData(){
+  if(D.texts){
+    document.querySelectorAll('[data-eid]').forEach(el=>{
+      if(D.texts[el.dataset.eid]!==undefined) el.innerHTML=D.texts[el.dataset.eid];
+    });
+  }
+  if(D.profPhoto){
+    const pp=document.getElementById('prof-photo');
+    if(pp) pp.innerHTML=`<img src="${D.profPhoto}" alt="谷口淳 教授">`;
+  }
+  /* rcBg: キーが文字列("0")でも数値(0)でも両方対応 */
+  [0,1,2].forEach(i=>{
+    const src = D.rcBg && (D.rcBg[i] || D.rcBg[String(i)]);
+    if(src) applyRcBg(i, src);
+  });
+  renderAllMembers();
+}
+
+/* ページ初期化 — DOMContentLoaded で確実に実行 */
+window.addEventListener('DOMContentLoaded', function(){
+  applyDisplayData();
+  renderActivities();
+  renderGallery();
+  buildHeroSlider();
+}, { once: true });
+
+/* ═══ EDIT MODE ═══ */
+function enterEditMode(){
+  document.body.classList.add('edit-mode');
+  /* contenteditable を有効化（表示内容はそのまま） */
+  document.querySelectorAll('[data-eid]').forEach(el=>{ el.contentEditable='true'; });
+  /* ギャラリーを edit-fields 表示に切り替え */
+  renderGallery();
+  toast('✏ 編集モード ON — テキストをクリックして直接編集できます');
+}
+
+function exitEdit(){
+  collectEdits();
+  document.body.classList.remove('edit-mode');
+  document.querySelectorAll('[data-eid]').forEach(el=>{ el.contentEditable='false'; });
+  history.replaceState(null,'',location.pathname);
+  renderGallery(); /* caption表示に戻す */
+  toast('編集モードを終了しました');
+}
+
+/* 編集内容を D に集約 */
+function collectEdits(){
+  /* テキスト */
+  document.querySelectorAll('[data-eid]').forEach(el=>{
+    D.texts[el.dataset.eid]=el.innerHTML;
+  });
+  /* ギャラリーコメント・日付 */
+  document.querySelectorAll('.gi[data-gid]').forEach(gi=>{
+    const id=gi.dataset.gid;
+    const item=(D.gallery||[]).find(g=>g.id===id);
+    if(!item)return;
+    const di=gi.querySelector('.gi-date-inp');
+    const ti=gi.querySelector('.gi-text-inp');
+    if(di) item.addedAt=di.value;
+    if(ti) item.comment=ti.value;
+  });
+  if(!D.members)D.members={};
+  /* ★ 活動記録・ギャラリー・写真データをすべて localStorage にも確実に保存 */
+  persist();
+}
+
+/* ═══ GITHUB SETTINGS ═══ */
+function openGhSettings(){
+  const s = loadGhSettings();
+  document.getElementById('gh-user').value   = s.user   || '';
+  document.getElementById('gh-repo').value   = s.repo   || '';
+  document.getElementById('gh-branch').value = s.branch || 'main';
+  document.getElementById('gh-path').value   = s.path   || 'index.html';
+  document.getElementById('gh-token').value  = s.token  || '';
+  document.getElementById('gh-status').className = 'gh-status';
+  document.getElementById('gh-status').textContent = '';
+  document.getElementById('gh-modal').classList.add('open');
+}
+function closeGhSettings(){
+  document.getElementById('gh-modal').classList.remove('open');
+}
+function loadGhSettings(){
+  try { return JSON.parse(localStorage.getItem('tlab_gh')||'{}'); } catch(e){ return {}; }
+}
+function saveGhSettings(){
+  const s = {
+    user:   document.getElementById('gh-user').value.trim(),
+    repo:   document.getElementById('gh-repo').value.trim(),
+    branch: document.getElementById('gh-branch').value.trim() || 'main',
+    path:   document.getElementById('gh-path').value.trim()   || 'index.html',
+    token:  document.getElementById('gh-token').value.trim(),
+  };
+  if(!s.user || !s.repo || !s.token){
+    showGhStatus('err','ユーザー名・リポジトリ名・トークンは必須です');
+    return;
+  }
+  localStorage.setItem('tlab_gh', JSON.stringify(s));
+  showGhStatus('ok','✅ 設定を保存しました。次回から「🚀 GitHubに公開」で反映されます。');
+}
+function showGhStatus(type, msg){
+  const el = document.getElementById('gh-status');
+  el.className = 'gh-status ' + type;
+  el.textContent = msg;
+}
+
+/* ═══ GITHUB PUBLISH ═══ */
+async function saveToGitHub(){
+  const s = loadGhSettings();
+  if(!s.user || !s.repo || !s.token){
+    toast('⚙ まず「GitHub設定」でリポジトリ情報を入力してください', 4000);
+    openGhSettings();
+    return;
+  }
+
+  collectEdits();
+  persist();
+
+  const btn = document.getElementById('gh-publish-btn');
+  const origText = btn.textContent;
+  btn.textContent = '⏳ アップロード中...';
+  btn.disabled = true;
+
+  try{
+    /* ── 更新済みHTMLを生成（saveAndDownloadと同じロジック） ── */
+    let out = _ORIGINAL_HTML;
+    const safeJson = JSON.stringify(D).replace(/<\/script/gi, '<\\/script');
+    const TOPEN  = ['<','script id="embedded-data" type="application/json">'].join('');
+    const TCLOSE = ['<','/script>'].join('');
+    const marker    = '<!--' + ' @@TLAB_DATA_START@@' + ' -->';
+    const markerEnd = '<!--' + ' @@TLAB_DATA_END@@'   + ' -->';
+    const newBlock  = marker + '\n' + TOPEN + safeJson + TCLOSE + '\n' + markerEnd;
+    const si = out.indexOf(marker);
+    const ei = out.indexOf(markerEnd);
+    if(si >= 0 && ei > si){
+      out = out.slice(0,si) + newBlock + out.slice(ei + markerEnd.length);
+    } else {
+      out = out.replace('</head>', newBlock + '\n</head>');
+    }
+
+    /* ── GitHub API: 現在のファイルSHAを取得 ── */
+    const apiBase = `https://api.github.com/repos/${s.user}/${s.repo}/contents/${s.path}`;
+    const headers = {
+      'Authorization': `Bearer ${s.token}`,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json',
+    };
+
+    let sha = null;
+    const getRes = await fetch(`${apiBase}?ref=${s.branch}`, { headers });
+    if(getRes.ok){
+      const getJson = await getRes.json();
+      sha = getJson.sha;
+    } else if(getRes.status !== 404){
+      const errJson = await getRes.json().catch(()=>({}));
+      throw new Error(errJson.message || `GET failed: ${getRes.status}`);
+    }
+
+    /* ── GitHub API: ファイルをコミット ── */
+    const content64 = btoa(unescape(encodeURIComponent(out)));
+    const body = {
+      message: `Update ${s.path} via admin panel [${new Date().toLocaleString('ja-JP')}]`,
+      content: content64,
+      branch: s.branch,
+    };
+    if(sha) body.sha = sha;
+
+    const putRes = await fetch(apiBase, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(body),
+    });
+
+    if(!putRes.ok){
+      const errJson = await putRes.json().catch(()=>({}));
+      throw new Error(errJson.message || `PUT failed: ${putRes.status}`);
+    }
+
+    toast('✅ GitHubにアップロードしました！1〜2分後にサイトに反映されます。', 6000);
+
+  } catch(err){
+    console.error('saveToGitHub error:', err);
+    toast(`⚠ エラー: ${err.message}`, 6000);
+  } finally {
+    btn.textContent = origText;
+    btn.disabled = false;
+  }
+}
+
+/* 💾 保存してダウンロード
+   ────────────────────────────────────────────
+   修正内容:
+   ① outerHTML 取得前にライブDOM状態をリセット
+      → マスコットのアニメーションクラス、スクロール状態クラス等をクリア
+   ② JSON 内の script 終了タグを安全にエスケープ
+      → テキストフィールドに特殊文字が含まれてもHTML構造が壊れない
+   ③ 固定マーカー（分割定義）で確実に置換
+      → </html> の有無に依存しない安定した置換
+   ──────────────────────────────────────────── */
+function saveAndDownload(){
+  collectEdits();   /* D.texts / gallery / members を最新化 */
+  persist();        /* localStorage にも保存 */
+
+  /* ★ 保存前にデータの中身をコンソールで確認できるようにする */
+  console.log('[保存] 活動記録:', D.activities.length, '件 / heroPhotos:', D.heroPhotos.length, '枚 / gallery:', D.gallery.length, '枚');
+
+  try{
+    /* ══════════════════════════════════════════════════════
+       ★ _ORIGINAL_HTML（ページ読み込み時の素のHTML）を
+         テンプレートとして使う。
+         outerHTML（ライブDOM）は一切使わない。
+         → 動的コンテンツ・inline style・アニメーション状態が
+           混入しないので常に安全に保存できる。
+    ══════════════════════════════════════════════════════ */
+    let out = _ORIGINAL_HTML;
+
+    /* ── JSON をエスケープ ── */
+    const safeJson = JSON.stringify(D)
+      .replace(/<\/script/gi, '<\\/script');
+
+    /* ── script タグをリテラルで書かないよう分割 ── */
+    const TOPEN  = ['<','script id="embedded-data" type="application/json">'].join('');
+    const TCLOSE = ['<','/script>'].join('');
+
+    /* ── マーカーも分割定義（ソース内に完全一致文字列を作らない）── */
+    const marker    = '<!--' + ' @@TLAB_DATA_START@@' + ' -->';
+    const markerEnd = '<!--' + ' @@TLAB_DATA_END@@'   + ' -->';
+
+    const newBlock = marker + '\n' + TOPEN + safeJson + TCLOSE + '\n' + markerEnd;
+
+    const s = out.indexOf(marker);
+    const e = out.indexOf(markerEnd);
+
+    if(s >= 0 && e > s){
+      /* マーカーが見つかった → 確実に置換 */
+      out = out.slice(0, s) + newBlock + out.slice(e + markerEnd.length);
+    } else {
+      /* フォールバック: </head> 直前に挿入 */
+      out = out.replace('</head>', newBlock + '\n</head>');
+    }
+
+    /* ── ダウンロード ── */
+    const blob = new Blob([out], {type:'text/html;charset=utf-8'});
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href = url; a.download = 'index.html';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 3000);
+
+    toast('✅ index.html をダウンロードしました！元のファイルと置き換えてください。', 5000);
+
+  }catch(err){
+    console.error('saveAndDownload error', err);
+    toast('⚠ ダウンロード失敗。データはブラウザに保存しました。', 4000);
+  }
+}
+function saveAll(){ saveAndDownload(); }
+
+/* ── HERO SLIDER ── */
+let heroIdx = 0;
+let heroTimer = null;
+
+function buildHeroSlider() {
+  const track = document.getElementById('hTrack');
+  const dotsEl = document.getElementById('hDots');
+  const photos = D.heroPhotos || [];
+  if(!photos.length) {
+    track.innerHTML = '<div class="hero-slide default-bg"><img src="" alt=""><div class="hero-slide-overlay"></div></div>';
+    dotsEl.innerHTML = '';
+    document.getElementById('hPrev').style.display='none';
+    document.getElementById('hNext').style.display='none';
+    return;
+  }
+  document.getElementById('hPrev').style.display='';
+  document.getElementById('hNext').style.display='';
+  /* 写真を固定サイズのボックスに入れる → 縦横問わず同じ枠で全体表示 */
+  track.innerHTML = photos.map(p=>`
+    <div class="hero-slide">
+      <img src="${p.src}" alt="">
+      <div class="hero-slide-overlay"></div>
+    </div>`).join('');
+  dotsEl.innerHTML = photos.map((_,i)=>
+    `<span class="hdot ${i===0?'active':''}" onclick="goHero(${i})"></span>`
+  ).join('');
+  heroIdx = 0; setHeroPos(0);
+  clearInterval(heroTimer);
+  heroTimer = setInterval(()=>slideHero(1), 5500);
+}
+
+function setHeroPos(i) {
+  document.getElementById('hTrack').style.transform = `translateX(-${i*100}%)`;
+  document.querySelectorAll('.hdot').forEach((d,j)=>d.classList.toggle('active',j===i));
+  heroIdx = i;
+}
+function slideHero(dir) {
+  const n = Math.max(D.heroPhotos.length,1);
+  setHeroPos((heroIdx+dir+n)%n);
+}
+function goHero(i) { setHeroPos(i); }
+
+async function addHeroPhoto(e) {
+  const file = e.target.files[0]; if(!file) return;
+  const src = await toDataURL(file);
+  D.heroPhotos.push({id: uid(), src});
+  persist(); buildHeroSlider(); goHero(D.heroPhotos.length-1);
+  toast('背景写真を追加しました ✓'); e.target.value='';
+}
+function removeHeroPhoto() {
+  if(!D.heroPhotos.length) return;
+  D.heroPhotos.splice(heroIdx,1);
+  persist(); buildHeroSlider();
+  toast('写真を削除しました');
+}
+
+/* ── RESEARCH BG ── */
+function triggerRcFile(i) { document.getElementById(`rcf-${i}`).click(); }
+async function onRcFile(i, e) {
+  const file = e.target.files[0]; if(!file) return;
+  const src = await toDataURL(file);
+  if(!D.rcBg) D.rcBg={};
+  D.rcBg[i] = src; persist(); applyRcBg(i,src);
+  toast(`研究テーマ${i+1}の背景写真を設定しました ✓`); e.target.value='';
+}
+function applyRcBg(i, src) {
+  const bg = document.getElementById(`rcbg-${i}`);
+  const del = document.getElementById(`rc-del-${i}`);
+  if(bg) bg.style.backgroundImage = `url("${src}")`;
+  if(del) del.style.display='block';
+}
+function removeRcBg(i) {
+  if(D.rcBg) delete D.rcBg[i];
+  const bg = document.getElementById(`rcbg-${i}`);
+  const del = document.getElementById(`rc-del-${i}`);
+  if(bg) bg.style.backgroundImage='';
+  if(del) del.style.display='none';
+  persist(); toast('背景写真を削除しました');
+}
+
+/* ── PROFESSOR PHOTO ── */
+async function updateProfPhoto(e) {
+  const file = e.target.files[0]; if(!file) return;
+  D.profPhoto = await toDataURL(file);
+  document.getElementById('prof-photo').innerHTML = `<img src="${D.profPhoto}" alt="谷口淳 教授">`;
+  persist(); toast('写真を更新しました ✓');
+}
+
+/* ── STUDENT ACTIVITIES ── */
+function renderActivities() {
+  const list = document.getElementById('act-list');
+  const acts = D.activities || [];
+  document.getElementById('act-empty').style.display = acts.length ? 'none' : 'block';
+  list.querySelectorAll('.act').forEach(el=>el.remove());
+  acts.forEach(a => {
+    const el = document.createElement('div'); el.className='act'; el.dataset.id=a.id;
+    const label = {presentation:'発表',award:'受賞',best_paper:'最優秀賞'}[a.type]||'発表';
+    el.innerHTML = `
+      <span class="act-date">${a.date}</span>
+      <span class="act-event">${a.event}</span>
+      ${a.detail?`<span class="act-detail">${a.detail}</span>`:''}
+      <span class="act-type ${a.type}">${label}</span>
+      <button class="act-del" onclick="deleteActivity('${a.id}')">×</button>`;
+    list.appendChild(el);
+  });
+  document.getElementById('act-badge').textContent = acts.length+'件';
+}
+let actFormOpen = false;
+function toggleActForm() {
+  actFormOpen = !actFormOpen;
+  document.getElementById('act-form').classList.toggle('open', actFormOpen);
+}
+function addActivity() {
+  const date   = document.getElementById('f-date').value.trim();
+  const event  = document.getElementById('f-event').value.trim();
+  const detail = document.getElementById('f-detail').value.trim();
+  const type   = document.getElementById('f-type').value;
+  if(!date||!event){toast('年月と学会名は必須です');return;}
+  D.activities.unshift({id:uid(),date,event,detail,type});
+  persist(); renderActivities();
+  document.getElementById('f-date').value='';
+  document.getElementById('f-event').value='';
+  document.getElementById('f-detail').value='';
+  toast('活動を追加しました ✓　→ 最後に「💾 保存してダウンロード」を押すとファイルに保存されます', 4000);
+}
+function deleteActivity(id) {
+  D.activities = D.activities.filter(a=>a.id!==id);
+  persist(); renderActivities(); toast('削除しました');
+}
+
+/* ── GALLERY ── */
+let galFilter = 'all';
+
+function getYearFromDate(s) {
+  const m = (s||'').match(/(\d{4})/);
+  return m ? m[1] : '未分類';
+}
+
+function filterGallery(year) {
+  galFilter = year;
+  document.querySelectorAll('.gal-tab').forEach(t =>
+    t.classList.toggle('active', t.dataset.year === year));
+  renderGallery();
+}
+
+function renderGallery() {
+  const root = document.getElementById('gal-root');
+  if(!root) return;
+  root.innerHTML = '';
+
+  const items  = D.gallery || [];
+  const isEdit = document.body.classList.contains('edit-mode');
+
+  /* year tabs を再構築 */
+  const allYears = [...new Set(items.map(i => getYearFromDate(i.addedAt)))].sort().reverse();
+  const tabsEl = document.getElementById('gal-tabs');
+  if(tabsEl) {
+    tabsEl.querySelectorAll('[data-year]:not([data-year="all"])').forEach(t => t.remove());
+    allYears.forEach(y => {
+      const btn = document.createElement('button');
+      btn.className = 'gal-tab' + (galFilter === y ? ' active' : '');
+      btn.dataset.year = y;
+      btn.textContent = y + '年';
+      btn.onclick = () => filterGallery(y);
+      tabsEl.appendChild(btn);
+    });
+  }
+
+  /* フィルタ適用 */
+  const filtered = galFilter === 'all'
+    ? [...items]
+    : items.filter(i => getYearFromDate(i.addedAt) === galFilter);
+
+  const countEl = document.getElementById('gal-count');
+  if(countEl) countEl.textContent = filtered.length + '枚';
+
+  /* 写真なし */
+  if(filtered.length === 0 && !isEdit) {
+    root.innerHTML = '<div class="gal-empty">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">' +
+      '<rect x="3" y="3" width="18" height="18" rx="3"/>' +
+      '<circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>' +
+      '写真がまだありません。編集モードで追加してください。</div>';
+    return;
+  }
+
+  /* 年ごとにグループ化して表示 */
+  const grouped = {};
+  filtered.forEach(item => {
+    const y = getYearFromDate(item.addedAt);
+    (grouped[y] = grouped[y]||[]).push(item);
+  });
+  const sortedYears = Object.keys(grouped).sort().reverse();
+
+  sortedYears.forEach(year => {
+    const groupItems = grouped[year];
+
+    /* ─ グループブロック ─ */
+    const block = document.createElement('div');
+    block.className = 'gal-group';
+
+    const header = document.createElement('div');
+    header.className = 'gal-group-header';
+    header.innerHTML =
+      '<span class="gal-group-year">' + (year === '未分類' ? '📁 未分類' : year + '年') + '</span>' +
+      '<div class="gal-group-line"></div>' +
+      '<span class="gal-group-n">' + groupItems.length + '枚</span>';
+    block.appendChild(header);
+
+    /* ─ スクロールストリップ ─ */
+    const outer = document.createElement('div');
+    outer.className = 'gal-strip-outer';   /* width:100% + overflow-x:auto */
+
+    const strip = document.createElement('div');
+    strip.className = 'gal-strip';         /* flex + nowrap */
+
+    /* 写真カードを追加 */
+    groupItems.forEach(item => strip.appendChild(buildGiCard(item, isEdit)));
+
+    /* 編集モード: アップロードカードをストリップ末尾に */
+    if(isEdit) {
+      const upCard = makeUploadCard('＋ 追加', year);
+      strip.appendChild(upCard);
+    }
+
+    outer.appendChild(strip);
+    block.appendChild(outer);
+    root.appendChild(block);
+  });
+
+  /* 編集モード: 新規グループ用のアップロードブロック */
+  if(isEdit) {
+    const addBlock = document.createElement('div');
+    addBlock.className = 'gal-group';
+
+    const addHeader = document.createElement('div');
+    addHeader.className = 'gal-group-header';
+    addHeader.innerHTML =
+      '<span class="gal-group-year" style="color:var(--teal);font-size:1rem">📷 新しい写真を追加</span>' +
+      '<div class="gal-group-line"></div>';
+    addBlock.appendChild(addHeader);
+
+    const addOuter = document.createElement('div');
+    addOuter.className = 'gal-strip-outer';
+    const addStrip = document.createElement('div');
+    addStrip.className = 'gal-strip';
+    addStrip.appendChild(makeUploadCard('写真を追加', null));
+    addOuter.appendChild(addStrip);
+    addBlock.appendChild(addOuter);
+    root.appendChild(addBlock);
+  }
+}
+
+/* ─ 写真1枚分のカード ─ */
+function buildGiCard(item, isEdit) {
+  const gi  = document.createElement('div');
+  gi.className  = 'gi';
+  gi.dataset.gid = item.id;
+
+  const caption    = item.comment || '';
+  const hasCaption = caption.trim() !== '';
+  const dateStr    = item.addedAt || '';
+
+  /* 画像エリア (クリックはイベント委譲で処理) */
+  const imgWrap = document.createElement('div');
+  imgWrap.className   = 'gi-img';
+  imgWrap.dataset.gid = item.id;
+  const img = document.createElement('img');
+  img.src = item.src;
+  img.alt = escHtml(caption);
+  img.loading = 'lazy';
+  imgWrap.appendChild(img);
+  gi.appendChild(imgWrap);
+
+  /* 削除ボタン */
+  const del = document.createElement('button');
+  del.className   = 'gi-del';
+  del.dataset.gid = item.id;
+  del.title       = '削除';
+  del.textContent = '×';
+  gi.appendChild(del);
+
+  /* 本文エリア */
+  const body = document.createElement('div');
+  body.className = 'gi-body';
+  body.innerHTML =
+    '<div class="gi-date-badge">' +
+      '<svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H5V8h14v13z"/></svg>' +
+      escHtml(dateStr) +
+    '</div>' +
+    '<p class="gi-caption' + (hasCaption ? '' : ' empty') + '">' +
+      (hasCaption ? escHtml(caption) : 'コメントなし') +
+    '</p>' +
+    '<div class="gi-edit-fields">' +
+      '<div class="gi-inp-label">📅 日付</div>' +
+      '<input class="gi-date-inp" type="text" placeholder="例: 2025年5月3日" value="' + escHtml(dateStr) + '" data-gid="' + item.id + '">' +
+      '<div class="gi-inp-label">💬 コメント（省略可）</div>' +
+      '<textarea class="gi-text-inp" placeholder="タイトルや説明を入力" data-gid="' + item.id + '">' + escHtml(caption) + '</textarea>' +
+    '</div>';
+  gi.appendChild(body);
+  return gi;
+}
+
+/* イベント委譲 — クリック */
+document.addEventListener('click', function(e) {
+  const imgWrap = e.target.closest('.gi-img[data-gid]');
+  if(imgWrap) {
+    const item = (D.gallery||[]).find(g => g.id === imgWrap.dataset.gid);
+    if(item) openLB(item.src, item.comment||'', item.addedAt||'');
+    return;
+  }
+  const delBtn = e.target.closest('.gi-del[data-gid]');
+  if(delBtn) {
+    e.stopPropagation();
+    if(!confirm('この写真を削除しますか？')) return;
+    delGallery(delBtn.dataset.gid);
+  }
+});
+
+/* イベント委譲 — input/textarea 変更（文字入力中はDOM再生成しない） */
+document.addEventListener('input', function(e) {
+  if(e.target.classList.contains('gi-date-inp')) updateGalDate(e.target.dataset.gid, e.target.value);
+  if(e.target.classList.contains('gi-text-inp')) updateComment(e.target.dataset.gid, e.target.value);
+});
+
+/* 日付入力欄からフォーカスが外れたときだけ年タブを更新（DOM再生成） */
+document.addEventListener('blur', function(e) {
+  if(e.target.classList.contains('gi-date-inp')) {
+    /* フォーカスが別の要素に移った後にギャラリーを再描画して年グループを整理 */
+    requestAnimationFrame(() => renderGallery());
+  }
+}, true /* capture: blur はバブリングしないので capture 必要 */);
+
+function makeUploadCard(label, targetYear) {
+  const card = document.createElement('div');
+  card.className = 'gal-upload-card';
+  card.innerHTML = '<span class="gal-plus">＋</span><span>' + escHtml(label) + '</span>';
+  card.addEventListener('click', () => {
+    const inp = document.getElementById('gal-inp');
+    if(targetYear) inp.dataset.targetYear = targetYear;
+    else           delete inp.dataset.targetYear;
+    inp.click();
+  });
+  return card;
+}
+
+function escHtml(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function addGalleryPhotos(e) {
+  const targetYear = e.target.dataset.targetYear;
+  const now = new Date();
+  const defaultDate = targetYear
+    ? targetYear + '年'
+    : now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日';
+
+  const files = Array.from(e.target.files);
+  for(const file of files) {
+    const src = await toDataURL(file);
+    D.gallery.push({id: uid(), src, comment:'', addedAt: defaultDate});
+  }
+  persist();
+  renderGallery();
+  toast(files.length + '枚追加しました ✓');
+  e.target.value = '';
+}
+
+function updateComment(id, val) {
+  const item = (D.gallery||[]).find(g => g.id === id);
+  if(item) { item.comment = val; persist(); }
+}
+
+function updateGalDate(id, val) {
+  const item = (D.gallery||[]).find(g => g.id === id);
+  if(item) {
+    item.addedAt = val;
+    persist();
+    /* ★ DOM再生成しない → フォーカスが失われず日本語入力可能
+       年タブの更新はblur時にのみ行う（下のblurリスナー参照） */
+  }
+}
+
+function delGallery(id) {
+  D.gallery = (D.gallery||[]).filter(g => g.id !== id);
+  persist(); renderGallery(); toast('写真を削除しました');
+}
+
+function triggerGalUpload() {
+  delete document.getElementById('gal-inp').dataset.targetYear;
+  document.getElementById('gal-inp').click();
+}
+
+/* ── LIGHTBOX ── */
+function openLB(src, caption, date) {
+  document.getElementById('lb-img').src = src;
+  const info = document.getElementById('lb-info');
+  const capEl = document.getElementById('lb-caption');
+  const dateEl = document.getElementById('lb-date');
+  if(caption || date) {
+    info.style.display = 'block';
+    capEl.textContent = caption || '';
+    dateEl.textContent = date || '';
+  } else {
+    info.style.display = 'none';
+  }
+  document.getElementById('lb').classList.add('open');
+}
+function closeLB(){document.getElementById('lb').classList.remove('open')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLB();closeGdriveModal();}});
+
+/* ── GOOGLE DRIVE URL MODAL ── */
+let _gdriveTarget = null; // 'hero' | 'gallery' | 0|1|2 (for rcBg)
+
+/* モーダルのタイトル・説明・入力UIをターゲットに応じて切り替え */
+function openGdriveModal(target) {
+  _gdriveTarget = target;
+  const modal      = document.getElementById('gdrive-modal');
+  const titleEl    = document.getElementById('gdrive-title');
+  const descEl     = document.getElementById('gdrive-desc');
+  const singleDiv  = document.getElementById('gdrive-single');
+  const multiDiv   = document.getElementById('gdrive-multi');
+  const inp        = document.getElementById('gdrive-inp');
+  const multiInp   = document.getElementById('gdrive-multi-inp');
+  const err        = document.getElementById('gdrive-err');
+  if(!modal) return;
+
+  err.textContent = '';
+
+  /* ターゲット別にUI切り替え */
+  if(target === 'hero') {
+    titleEl.textContent = '🖼️ ヒーロー背景写真を追加';
+    descEl.innerHTML    = 'GoogleドライブのURLを貼り付けてください。<br>スライダーに追加され、⟨ ⟩ で切り替えられます。';
+    singleDiv.style.display = '';
+    multiDiv.style.display  = 'none';
+    inp.value = '';
+    modal.classList.add('open');
+    requestAnimationFrame(() => inp.focus());
+
+  } else if(target === 'gallery') {
+    titleEl.textContent = '📷 ギャラリーに写真を追加';
+    descEl.innerHTML    = '1行に1URLを貼り付けてください。<strong>複数まとめて追加</strong>できます。<br>共有設定→「リンクを知っている全員が閲覧可」を確認してください。';
+    singleDiv.style.display = 'none';
+    multiDiv.style.display  = '';
+    multiInp.value = '';
+    modal.classList.add('open');
+    requestAnimationFrame(() => multiInp.focus());
+
+  } else if(typeof target === 'number') {
+    const labels = ['01 三次元ナノ構造作製', '02 ナノインプリント', '03 ダイヤモンド超微細加工'];
+    titleEl.textContent = '🎨 研究テーマ ' + (labels[target] || (target+1)) + ' の背景';
+    descEl.innerHTML    = 'GoogleドライブのURLを貼り付けてください。<br>研究テーマカードの背景に表示されます。';
+    singleDiv.style.display = '';
+    multiDiv.style.display  = 'none';
+    inp.value = '';
+    modal.classList.add('open');
+    requestAnimationFrame(() => inp.focus());
+  }
+}
+
+function closeGdriveModal() {
+  const modal = document.getElementById('gdrive-modal');
+  if(modal) modal.classList.remove('open');
+  _gdriveTarget = null;
+}
+
+/* GoogleドライブURLからlh3形式のURLに変換 */
+function gdriveUrlToSrc(url) {
+  url = (url || '').trim();
+  if(!url) return null;
+  // パターン: /file/d/{ID}
+  let m = url.match(/\/file\/d\/([a-zA-Z0-9_\-]+)/);
+  if(m) return 'https://lh3.googleusercontent.com/d/' + m[1];
+  // パターン: id={ID}
+  m = url.match(/[?&]id=([a-zA-Z0-9_\-]+)/);
+  if(m) return 'https://lh3.googleusercontent.com/d/' + m[1];
+  // パターン: すでにlh3形式
+  m = url.match(/lh3\.googleusercontent\.com\/d\/([a-zA-Z0-9_\-]+)/);
+  if(m) return 'https://lh3.googleusercontent.com/d/' + m[1];
+  return null;
+}
+
+function confirmGdrive() {
+  const err    = document.getElementById('gdrive-err');
+  const target = _gdriveTarget;
+
+  /* ══ ギャラリー：複数URL一括追加 ══ */
+  if(target === 'gallery') {
+    const multiInp = document.getElementById('gdrive-multi-inp');
+    const lines    = (multiInp.value || '').split('\n').map(l => l.trim()).filter(Boolean);
+    if(!lines.length){ err.textContent = 'URLを入力してください'; return; }
+
+    const now = new Date();
+    const defaultDate = now.getFullYear() + '年' + (now.getMonth()+1) + '月';
+    const added = [];
+    const failed = [];
+
+    lines.forEach(line => {
+      const src = gdriveUrlToSrc(line);
+      if(src) {
+        D.gallery.push({id: uid(), src, comment:'', addedAt: defaultDate});
+        added.push(src);
+      } else {
+        failed.push(line.slice(0,40));
+      }
+    });
+
+    if(added.length === 0){ err.textContent = '有効なGoogleドライブURLが見つかりません'; return; }
+    closeGdriveModal();
+    persist(); renderGallery();
+    const msg = added.length + '枚をギャラリーに追加しました ✓'
+      + (failed.length ? '（' + failed.length + '件は無効なURLで除外）' : '');
+    toast(msg, 4000);
+    return;
+  }
+
+  /* ══ 1枚追加（ヒーロー・研究テーマ） ══ */
+  const inp = document.getElementById('gdrive-inp');
+  const raw = inp ? inp.value.trim() : '';
+  if(!raw){ err.textContent = 'URLを入力してください'; return; }
+  const src = gdriveUrlToSrc(raw);
+  if(!src){ err.textContent = 'GoogleドライブのURLを入力してください（drive.google.com/file/d/...）'; return; }
+
+  closeGdriveModal();
+
+  if(target === 'hero') {
+    D.heroPhotos.push({id: uid(), src});
+    persist(); buildHeroSlider(); goHero(D.heroPhotos.length - 1);
+    toast('ヒーロー背景写真を追加しました ✓');
+
+  } else if(typeof target === 'number') {
+    /* 研究テーマ背景 — キーは文字列に統一 */
+    if(!D.rcBg) D.rcBg = {};
+    D.rcBg[String(target)] = src;
+    persist();
+    const bg  = document.getElementById('rcbg-'   + target);
+    const del = document.getElementById('rc-del-' + target);
+    if(bg)  bg.style.backgroundImage = 'url("' + src + '")';
+    if(del) del.style.display = 'block';
+    toast('研究テーマ' + (target+1) + 'の背景写真を設定しました ✓');
+  }
+}
+
+/* ── NANO MASCOT ── */
+(function(){
+  const mascot = document.getElementById('mascot');
+  const bubble = document.getElementById('mascot-bubble');
+  if(!mascot || !bubble) return;
+
+  /* ── All messages by category ── */
+  const MSGS = {
+    welcome: ['ようこそ！🎉','谷口研究室へ！','はじめまして😊'],
+    intro: [
+      'このサイト、何秒で読み終わると思う？',
+      '研究室、楽しそう？それともヤバそう？',
+      'コーヒー派？エナドリ派？',
+      '今の時刻、何時？',
+      '正直、ここ来た理由って何？',
+      '直感でいいから、この研究分かりそう？',
+      '寝不足で来てない？',
+      'スクロール、速いタイプ？',
+      'ここに来たの、偶然？それとも狙い撃ち？',
+      '最後まで見てくれる自信ある？',
+    ],
+    nano: [
+      'ナノってどれくらい小さいか知ってる？',
+      '光って曲げられると思う？',
+      'レンズって"削る"以外に作れるの知ってた？',
+      '100nmって見えると思う？',
+      '電子ビーム、触ったことある？',
+      'この中で一番難しそうなのどれ？',
+      '"位相"って言葉、聞いたことある？',
+      'メタレンズ、名前かっこよくない？',
+      'シミュレーション派？実験派？',
+      '光を操れるってちょっとワクワクしない？',
+    ],
+    joke: [
+      '今、ちょっと賢くなった気がする？',
+      '正直、読むの面倒になってきた？',
+      'ここテストに出るよ（出ない）',
+      'スクショしたくなった？',
+      'このキャラ、いる？',
+      '研究よりこのキャラの方が気になってない？',
+      'もう一回最初から見る？',
+      'ここでやめる？それとも進む？',
+      '友達にこのサイト教える？',
+      'ここまで読んだあなた、えらい',
+    ],
+    interactive: [
+      'どっち派？→ 実験 / シミュレーション',
+      '興味ある？→ ある / ちょっと / ない',
+      'この後どうする？→ 見る / 閉じる',
+      '気になる分野は？→ ナノ / 光 / 半導体',
+      '研究室見学、行く？→ 行く / 検討中',
+      'このページ、何点？',
+      '難易度どう？→ ★ / ★★★ / ★★★★★',
+    ],
+    think: [
+      '"小さい"ってどこまで想像できる？',
+      '目に見えないものって信じられる？',
+      'もし光を自由に操れたら何したい？',
+      '未来のレンズってどうなると思う？',
+      'AIとナノ、どっちが未来を変えそう？',
+      '研究って楽しいと思う？それとも大変？',
+      '"見えない世界"って面白いと思う？',
+      'この研究、社会でどう役立つと思う？',
+      'あなたなら何を研究したい？',
+    ],
+    click: ['ピョン！','えへへ😊','もう一回！','やったー⭐','ナノ！'],
+    scroll:['スクロール中！','どこへ行くの？','頑張れ〜！','待ってー！'],
+    bottom:['下まで来たね！','お疲れさま🎉','また来てね！','全部見たの！？'],
+    top:   ['上に戻ったよ！','またね〜👋','最初からどうぞ！'],
+  };
+
+  /* scroll-position を 5 段階に分けてメッセージを変える */
+  const SCROLL_PHASES = [
+    { ratio: 0.0,  keys: ['welcome','intro'] },
+    { ratio: 0.2,  keys: ['intro','nano'] },
+    { ratio: 0.45, keys: ['nano','joke'] },
+    { ratio: 0.65, keys: ['interactive'] },
+    { ratio: 0.85, keys: ['think','joke'] },
+  ];
+
+  let state       = '';
+  let bubTimer    = null;
+  let stateTimer  = null;
+  let scrollTimer = null;
+  let lastScrollY = window.scrollY;
+  let clickCount  = 0;
+  let lastPhaseIdx= -1;
+
+  function getScrollRatio() {
+    const max = document.body.scrollHeight - window.innerHeight;
+    return max > 0 ? window.scrollY / max : 0;
+  }
+
+  function pickMsg(keys) {
+    const pool = keys.flatMap(k => MSGS[k] || []);
+    return pool[Math.floor(Math.random() * pool.length)] || 'ナノ！';
+  }
+
+  function setState(s, dur) {
+    mascot.className = s;
+    state = s;
+    if(dur) {
+      clearTimeout(stateTimer);
+      stateTimer = setTimeout(() => setState('idle'), dur);
+    }
+  }
+
+  function showBubble(msg, dur=3200) {
+    bubble.textContent = msg;
+    bubble.classList.add('show');
+    clearTimeout(bubTimer);
+    bubTimer = setTimeout(() => bubble.classList.remove('show'), dur);
+  }
+
+  /* init */
+  setState('idle');
+  setTimeout(() => showBubble(pickMsg(['welcome'])), 1800);
+
+  /* click mascot */
+  mascot.addEventListener('click', () => {
+    clickCount++;
+    eyesPop();
+    if(clickCount % 5 === 0) {
+      setState('happy', 1100);
+    } else {
+      setState('jump', 760);
+    }
+    showBubble(pickMsg(['click']));
+  });
+
+  /* hover mascot → wave */
+  mascot.addEventListener('mouseenter', () => {
+    if(state === 'idle') {
+      setState('wave', 1700);
+    }
+  });
+
+  /* scroll → walk + phase messages */
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    lastScrollY = y;
+
+    clearTimeout(scrollTimer);
+
+    /* walk while scrolling */
+    if(state === 'idle') setState('walk');
+
+    scrollTimer = setTimeout(() => {
+      setState('idle');
+      const ratio = getScrollRatio();
+      const atBottom = ratio > 0.96;
+      const atTop    = y < 60;
+
+      if(atBottom) {
+        showBubble(pickMsg(['bottom']));
+        return;
+      }
+      if(atTop) return; // don't show at very top (welcome already shown)
+
+      /* phase-based message: show once per phase entry */
+      let phaseIdx = 0;
+      for(let i = SCROLL_PHASES.length - 1; i >= 0; i--) {
+        if(ratio >= SCROLL_PHASES[i].ratio) { phaseIdx = i; break; }
+      }
+      if(phaseIdx !== lastPhaseIdx) {
+        lastPhaseIdx = phaseIdx;
+        showBubble(pickMsg(SCROLL_PHASES[phaseIdx].keys));
+      }
+    }, 350);
+  }, { passive: true });
+
+  /* random idle message every 22s */
+  setInterval(() => {
+    if(state === 'idle' && !bubble.classList.contains('show')) {
+      const ratio = getScrollRatio();
+      let keys = ['joke','nano','think'];
+      if(ratio < 0.15) keys = ['intro'];
+      else if(ratio > 0.8) keys = ['interactive','think'];
+      showBubble(pickMsg(keys));
+    }
+  }, 22000);
+
+  function eyesPop() {
+    const pl = document.getElementById('mc-pupil-l');
+    const pr = document.getElementById('mc-pupil-r');
+    if(!pl || !pr) return;
+    pl.setAttribute('r','8'); pr.setAttribute('r','8');
+    setTimeout(() => { pl.setAttribute('r','6'); pr.setAttribute('r','6'); }, 320);
+  }
+})();
+
+function toDataURL(file) {
+  return new Promise((res,rej)=>{
+    const r=new FileReader(); r.onload=e=>res(e.target.result); r.onerror=rej; r.readAsDataURL(file);
+  });
+}
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2); }
+function toast(msg,dur=2800){
+  const t=document.createElement('div'); t.className='toast'; t.textContent=msg;
+  document.body.appendChild(t); setTimeout(()=>t.remove(),dur);
+}
+</script></body></html>
